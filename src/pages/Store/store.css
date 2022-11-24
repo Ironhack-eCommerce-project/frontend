@@ -1,0 +1,11 @@
+.listItemsMain {
+    display: flex;
+    flex-wrap: wrap;
+}
+.listItemBox {
+    width: 20vw;
+    margin-right: 20px;
+}
+.listItemImg {
+    width: 20vw;
+}
