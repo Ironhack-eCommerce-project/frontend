@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function Signup() {
   const defaultUser = {
-    username: "",
+    email: "",
     password: "",
   };
   const [user, setUser] = useState(defaultUser);
@@ -21,8 +21,12 @@ function Signup() {
     setUser(defaultUser);
   }
 
-  function checkIfUserNameUnique(username) {
+  function checkIfEmailUnique(username) {
     console.log("check DB")
+  }
+
+  function validEmail(str){
+    return /\S+@\S+\.\S+/.test(str);
   }
 
   //PW should have at least 6 characters, incl a number, one uppercase letter and one lowercase
@@ -37,12 +41,13 @@ function Signup() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Username:
+        E-Mail:
         <input
-          type="text"
-          name="username"
-          value={user.username}
+          type="email"
+          name="email"
+          value={user.email}
           onChange={handleChange}
+          style={{backgroundColor: validEmail(user.email) ? "green" : "red"}}
         />
       </label>
       <br />
@@ -57,7 +62,7 @@ function Signup() {
         />
       </label>
       <br />
-      <button type="submit">Sign-Up</button>
+      <button type="submit">Sign up</button>
     </form>
   );
 }
