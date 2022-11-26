@@ -7,7 +7,7 @@ import "./store.css";
 function Store() {
   const [products, setProducts] = useState([]);
 
-  //fetch data using fetch
+  //fetch data using axios
 
   useEffect(() => {
     const fetchData = async () => {
