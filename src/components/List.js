@@ -9,7 +9,7 @@ function List({ products }) {
         return (
           <div className="listItemBox" key={elem.slug}>
             <Link to={`/store/${elem.slug}`}>
-              <img src={elem.img} alt={elem.name} className="listItemImg" />
+              <img src={elem.image} alt={elem.name} className="listItemImg" />
             </Link>
             <p>{elem.category}</p>
             <h2>{elem.name}</h2>
