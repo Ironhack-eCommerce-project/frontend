@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import initialProducts from "../../initial-products.json";
+// import initialProducts from "../../initial-products.json";
 import List from "../../components/List";
 import "./store.css";
 
@@ -20,7 +20,7 @@ function Store() {
 
   return (
     <>
-      <h1>Products:</h1>
+      <h1>Products</h1>
       <List products={products} />
     </>
   );

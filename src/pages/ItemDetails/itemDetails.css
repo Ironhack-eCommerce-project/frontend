@@ -1,9 +1,10 @@
 .itemDetailsMain {
-    display: flex;
-    margin: 30px 20px 20px 40px;
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 20px 20px 40px;
 }
 
 .itemDetailsImg {
-    width: 40vw;
-    margin-right: 20px;
+  width: 40vw;
+  margin-right: 20px;
 }
