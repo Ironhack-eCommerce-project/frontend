@@ -11,6 +11,7 @@ import Store from "./pages/Store/Store";
 
 function App() {
   return (
+    <Box>
       <Container>
         <Routes>
           <Route index element={<Home />} />
