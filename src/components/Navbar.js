@@ -111,6 +111,7 @@ function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
+              
               <Button
                 key={index}
                 component={Link}
