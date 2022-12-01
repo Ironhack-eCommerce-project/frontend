@@ -15,11 +15,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-// const pages = [
-//   { name: "Home", path: "/" },
-//   { name: "store", path: "/store" },
-// ];
-
 const pages = ["Home", "Store", "Categories"];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -54,7 +49,7 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="black"
+              color="white"
             >
               <MenuIcon />
             </IconButton>
