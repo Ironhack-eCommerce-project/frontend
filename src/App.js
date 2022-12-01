@@ -13,7 +13,7 @@ function App() {
   return (
     <Box>
       <Navbar />
-      <Container>
+      <Container>        
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
