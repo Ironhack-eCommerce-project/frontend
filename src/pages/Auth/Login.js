@@ -76,7 +76,7 @@ function Login() {
             </Button>
             <Typography>
               Don't have an account?
-              <Link to={""}>Sign up</Link>
+              <Link to={"/signup"}>Sign up</Link>
             </Typography>
           </form>
         </Grid>
