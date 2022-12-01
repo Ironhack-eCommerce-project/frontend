@@ -39,8 +39,8 @@ function Navbar() {
   };
 
   return (
-    <AppBar sx={{ background: "#ff5151" }} position="static">
-      <Container maxWidth="xl">
+    <AppBar sx={{ background: "#ff5151" }} position="sticky">
+      <Container spacing={0} maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -105,7 +105,6 @@ function Navbar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, index) => (
-              
               <Button
                 key={index}
                 component={Link}

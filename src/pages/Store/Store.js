@@ -18,12 +18,13 @@ function Store() {
   }, []);
 
   return (
-    <Container>
-      <h1>Products</h1>
-      <List products={products} />
-    </Container>
+    <>
+      <Container>
+        <h1>Products</h1>
+        <List products={products} />
+      </Container>
 
-<AddProduct />
+      <AddProduct />
     </>
   );
 }

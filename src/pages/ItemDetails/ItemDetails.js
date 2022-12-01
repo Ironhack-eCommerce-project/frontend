@@ -9,7 +9,7 @@ function ItemDetails() {
 
   useEffect(() => {
     const findProduct = async () => {
-      const result = await axios.get(`/api/products/${slug}`);
+      const result = await axios.get(`/products/${slug}`);
       const data = await result.data;
       setProduct(data);
     };

@@ -32,7 +32,7 @@ function AddProduct() {
     e.preventDefault();
     console.log("REEE", newProduct);
     try {
-      const resp = await axios.post("/api/products", newProduct);
+      const resp = await axios.post("/products", newProduct);
       console.log("respdata", resp);
       setNewProduct(defaultProduct);
     } catch (error) {
