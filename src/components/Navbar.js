@@ -21,7 +21,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 //   { name: "store", path: "/store" },
 // ];
 
-const pages = ["Home", "Store"];
+const pages = ["Home", "Store", "Categories"];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 

@@ -12,6 +12,7 @@ import Store from "./pages/Store/Store";
 function App() {
   return (
     <Box>
+      <Navbar />
       <Container>
         <Routes>
           <Route index element={<Home />} />
