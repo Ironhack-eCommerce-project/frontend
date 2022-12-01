@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Container } from "@mui/material";
 import axios from "axios";
 import List from "../../components/List";
 import "./store.css";
@@ -9,7 +10,7 @@ function Store() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("/api/products");
+      const result = await axios.get("/products");
       const data = await result.data;
       setProducts(data);
     };
@@ -17,10 +18,12 @@ function Store() {
   }, []);
 
   return (
-    <>
+    <Container>
       <h1>Products</h1>
       <List products={products} />
-      <AddProduct />
+    </Container>
+
+<AddProduct />
     </>
   );
 }

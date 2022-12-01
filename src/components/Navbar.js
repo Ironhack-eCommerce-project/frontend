@@ -2,7 +2,6 @@ import * as React from "react";
 
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material//Tabs";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -16,12 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-// const pages = [
-//   { name: "Home", path: "/" },
-//   { name: "store", path: "/store" },
-// ];
-
-const pages = ["Home", "Store"];
+const pages = ["Home", "Store", "Categories", "Login"];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -55,7 +49,7 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="black"
+              color="white"
             >
               <MenuIcon />
             </IconButton>
@@ -117,7 +111,7 @@ function Navbar() {
                 component={Link}
                 to={`${page}`}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>
