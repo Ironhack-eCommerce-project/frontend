@@ -15,7 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Home", "Store", "Categories"];
+const pages = ["Home", "Store", "Categories", "Login"];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -110,7 +110,7 @@ function Navbar() {
                 component={Link}
                 to={`${page}`}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>
