@@ -11,6 +11,12 @@ function AddProduct() {
     slug: "",
   };
   const [newProduct, setNewProduct] = useState(defaultProduct);
+  /* const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [image, setImage] = useState("");
+  const [category, setCategory] = useState("");
+  const [slug, setSlug] = useState(""); */
 
   const handleChange = (e) => {
     setNewProduct((old) => {
@@ -26,13 +32,26 @@ function AddProduct() {
     e.preventDefault();
     console.log("REEE", newProduct);
     try {
-      const resp = await axios.post("/api/products", { newProduct} );
+      const resp = await axios.post("/api/products", newProduct);
       console.log("respdata", resp);
       setNewProduct(defaultProduct);
     } catch (error) {
       console.log(error.response.data);
     }
   };
+  /* const handleSubmit = (e) =>  {
+    e.preventDefault();
+    const requestBody = { name, description, price, image, category, slug };
+    console.log("description", description);
+    console.log("RB", requestBody)
+    axios
+        .post("/api/products", requestBody)
+        .then((response) => {
+            setName("");
+            setDescription("");
+        })
+        .catch((error) => console.log(error));
+  }; */
 
   useEffect(() => console.log(newProduct), [newProduct]);
 
