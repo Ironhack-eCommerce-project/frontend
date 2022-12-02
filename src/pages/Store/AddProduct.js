@@ -35,8 +35,9 @@ function AddProduct({ setProducts }) {
     setNewProduct((old) => (slug) => replaceWhitespaces(slug))
     try {
       const resp = await axios.post("/products", newProduct);
-      console.log(resp)
-      setNewProduct(defaultProduct);
+      console.log("respdata", resp);
+
+setNewProduct(defaultProduct);
       const fetchData = async () => {
         const result = await axios.get("/products");
         const data = await result.data;

@@ -11,7 +11,13 @@ import Store from "./pages/Store/Store";
 
 function App() {
   return (
-    <Box>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      margin="0"
+    >
       <Navbar />
       <Container>
         <Routes>

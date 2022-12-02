@@ -23,7 +23,9 @@ function Store() {
         <h1>Products</h1>
         <List products={products} />
       </Container>
+
       <AddProduct setProducts={setProducts} />
+
     </>
   );
 }

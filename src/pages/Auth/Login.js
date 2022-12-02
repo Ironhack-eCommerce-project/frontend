@@ -7,7 +7,6 @@ import {
   Input,
   InputLabel,
   Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -31,13 +30,20 @@ function Login() {
 
   const paperStyle = {
     padding: 20,
-    height: "70vh",
+    minHeight: "40vh",
     width: 300,
-    margin: "10px auto",
   };
 
   return (
-    <Grid>
+    <Grid
+      component={"container"}
+      spacing={0}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      minHeight={"100vh"}
+      margin="0"
+    >
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           <Avatar>
@@ -75,8 +81,7 @@ function Login() {
               Login
             </Button>
             <Typography>
-              Don't have an account?
-              <Link to={"/signup"}>Sign up</Link>
+              Don't have an account? <Link to={"/signup"}>Sign up</Link>
             </Typography>
           </form>
         </Grid>
