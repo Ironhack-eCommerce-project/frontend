@@ -24,7 +24,8 @@ function Store() {
         <List products={products} />
       </Container>
 
-      <AddProduct />
+      <AddProduct setProducts={setProducts} />
+
     </>
   );
 }
