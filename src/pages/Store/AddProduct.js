@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-function AddProduct() {
+function AddProduct({ setProducts }) {
   const defaultProduct = {
     name: "",
     description: "",
@@ -11,47 +11,43 @@ function AddProduct() {
     slug: "",
   };
   const [newProduct, setNewProduct] = useState(defaultProduct);
-  /* const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
-  const [slug, setSlug] = useState(""); */
 
+  const replaceWhitespaces = (str, str2) => {
+    return str.replace(/\s+/g, str2)
+  }
+
+  /* Not sure that is the perfect solution, but now for the slug every whitespace is immediatly turned into a "-", already while typing  */
   const handleChange = (e) => {
     setNewProduct((old) => {
       let newValue = e.target.value;
       if (typeof old[e.target.name] === "number") {
         newValue = parseFloat(e.target.value);
       }
+      if (e.target.name === "slug") {
+        newValue = replaceWhitespaces(e.target.value, "-")
+      }
       return { ...old, [e.target.name]: newValue };
     });
-  };
+  };  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("REEE", newProduct);
+    setNewProduct((old) => (slug) => replaceWhitespaces(slug))
     try {
       const resp = await axios.post("/products", newProduct);
       console.log("respdata", resp);
+      console.log(resp)
       setNewProduct(defaultProduct);
+      const fetchData = async () => {
+        const result = await axios.get("/products");
+        const data = await result.data;
+        setProducts(data);
+      };
+      fetchData();
     } catch (error) {
       console.log(error.response.data);
     }
   };
-  /* const handleSubmit = (e) =>  {
-    e.preventDefault();
-    const requestBody = { name, description, price, image, category, slug };
-    console.log("description", description);
-    console.log("RB", requestBody)
-    axios
-        .post("/api/products", requestBody)
-        .then((response) => {
-            setName("");
-            setDescription("");
-        })
-        .catch((error) => console.log(error));
-  }; */
 
   useEffect(() => console.log(newProduct), [newProduct]);
 
