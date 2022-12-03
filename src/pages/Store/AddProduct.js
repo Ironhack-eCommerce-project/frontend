@@ -32,18 +32,17 @@ function AddProduct({ setProducts }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setNewProduct((old) => (slug) => replaceWhitespaces(slug))
+    setNewProduct((old) => (slug) => replaceWhitespaces(slug));
     try {
       const resp = await axios.post("/products", newProduct);
       console.log("respdata", resp);
-
-setNewProduct(defaultProduct);
+      setNewProduct(defaultProduct);
       const fetchData = async () => {
         const result = await axios.get("/products");
         const data = await result.data;
         setProducts(data);
       };
-      fetchData();
+      fetchData();      
     } catch (error) {
       console.log(error.response.data);
     }
@@ -89,7 +88,6 @@ setNewProduct(defaultProduct);
           />
         </label>
         <br />
-
         <label>
           Category:
           <input

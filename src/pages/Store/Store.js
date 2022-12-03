@@ -21,7 +21,7 @@ function Store() {
     <>
       <Container>
         <h1>Products</h1>
-        <List products={products} />
+        <List products={products} setProducts={setProducts} />
       </Container>
 
       <AddProduct setProducts={setProducts} />
