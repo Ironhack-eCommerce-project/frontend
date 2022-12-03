@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { replaceWhitespaces } from "../../functions";
+import { replaceWhitespaces } from "../functions";
 
 function AddProduct({ setProducts }) {
   const defaultProduct = {
@@ -11,7 +11,7 @@ function AddProduct({ setProducts }) {
     category: "",
     slug: "",
   };
-  const [newProduct, setNewProduct] = useState(defaultProduct);  
+  const [newProduct, setNewProduct] = useState(defaultProduct);
 
   /* Not sure that is the perfect solution, but now for the slug every whitespace is immediatly turned into a "-", already while typing  */
   const handleChange = (e) => {
@@ -21,24 +21,24 @@ function AddProduct({ setProducts }) {
         newValue = parseFloat(e.target.value);
       }
       if (e.target.name === "slug") {
-        newValue = replaceWhitespaces(e.target.value, "-")
+        newValue = replaceWhitespaces(e.target.value, "-");
       }
       return { ...old, [e.target.name]: newValue };
     });
-  };  
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const resp = await axios.post("/products", newProduct);
-      console.log("respdata", resp);
+      console.log("resp:", resp);
       setNewProduct(defaultProduct);
       const fetchData = async () => {
         const result = await axios.get("/products");
         const data = await result.data;
         setProducts(data);
       };
-      fetchData();      
+      fetchData();
     } catch (error) {
       console.log(error.response.data);
     }

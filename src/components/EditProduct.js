@@ -1,11 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { replaceWhitespaces } from "../functions";
 
-function EditProduct({ product, setEditButtonClicked, setProduct }) {
+function EditProduct({ product, setEditButtonClicked, setProducts }) {
   const [editedProduct, setEditedProduct] = useState(product);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setEditedProduct((old) => {
@@ -27,15 +25,14 @@ function EditProduct({ product, setEditButtonClicked, setProduct }) {
       console.log(resp);
 
       /* As in Add/Delete Product the following function just to refresh what is shown. Should probably be improved in the future */
-      const findProduct = async () => {
-        const result = await axios.get(`/products/${editedProduct.slug}`);
+      const fetchData = async () => {
+        const result = await axios.get("/products");
         const data = await result.data;
-        setProduct(data);
+        setProducts(data);
       };
-      findProduct();
+      fetchData();
 
       setEditButtonClicked(false)
-      navigate(`/store/${editedProduct.slug}`);
     } catch (error) {
       console.log(error);
     }

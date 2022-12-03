@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
 import "../pages/Store/store.css";
-import DeleteProduct from "./DeleteProduct";
 
 function List({ products, setProducts }) {
   console.log(products);
- 
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -24,7 +23,6 @@ function List({ products, setProducts }) {
               <Typography>{elem.category}</Typography>
               <Typography>{elem.name}</Typography>
               <Typography>€ {elem.price}</Typography>
-              <DeleteProduct elem={elem} setProducts={setProducts} />
             </Grid>
           );
         })}

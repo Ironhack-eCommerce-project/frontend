@@ -6,7 +6,7 @@ function DeleteProduct({ elem, setProducts }) {
     try {
       await axios.delete(`/products/${elem.slug}`);
       
-      /* The following fetchData stuff here and in AddProduct is just so it gets immediatly
+      /* The following fetchData stuff here and in AddProduct, EditProduct is just so it gets immediatly
       shown. There's probably a better and more efficient way */
       const fetchData = async () => {
         const result = await axios.get("/products");
