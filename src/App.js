@@ -3,11 +3,12 @@ import { Box, Container } from "@mui/material";
 import "./App.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
-import Home from "./pages/Home";
-import ItemDetails from "./pages/ItemDetails/ItemDetails";
+import Profile from "./pages/Auth/Profile";
 import Store from "./pages/Store/Store";
+import ItemDetails from "./pages/ItemDetails/ItemDetails";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/store" element={<Store />} />
           <Route path="/store/:slug" element={<ItemDetails />} />
         </Routes>
