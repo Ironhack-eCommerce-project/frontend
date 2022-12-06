@@ -1,16 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { replaceWhitespaces } from "../functions";
+import { slugify } from "../functions";
 
-function AddProduct({ setProducts }) {
+function AddProduct({ setProducts, categories }) {
   const defaultProduct = {
     name: "",
     description: "",
     price: 0.0,
     image: "",
-    category: "",
     slug: "",
   };
+  categories[0] ? defaultProduct.category = categories[0].name : defaultProduct.category = "";
+  
   const [newProduct, setNewProduct] = useState(defaultProduct);
 
   /* Not sure that is the perfect solution, but now for the slug every whitespace is immediatly turned into a "-", already while typing  */
@@ -21,7 +22,7 @@ function AddProduct({ setProducts }) {
         newValue = parseFloat(e.target.value);
       }
       if (e.target.name === "slug") {
-        newValue = replaceWhitespaces(e.target.value, "-");
+        newValue = slugify(e.target.value);
       }
       return { ...old, [e.target.name]: newValue };
     });
@@ -84,14 +85,14 @@ function AddProduct({ setProducts }) {
           />
         </label>
         <br />
-        <label>
+        {categories[0] && <label>
           Category:
-          <input
-            name="category"
-            value={newProduct.category}
-            onChange={handleChange}
-          />
-        </label>
+          <select value={newProduct.category} onChange={handleChange} name="category">
+            {categories.map((category) => (
+              <option key={category.slug} value={category.slug}>{category.name}</option>
+            ))}
+          </select>
+        </label>}
         <br />
         <label>
           Slug:
