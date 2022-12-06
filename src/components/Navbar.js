@@ -15,7 +15,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Home", "Store", "Categories", "Login"];
+const pages = ["Home", "Store", "Categories", "Login", "Dashboard"];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -151,18 +151,5 @@ function Navbar() {
     </AppBar>
   );
 }
-
-// {/* <NavLink to="/" className="headerLink">
-//   Home
-// </NavLink>
-// <NavLink to="/store" className="headerLink">
-//   Store
-// </NavLink>
-// <NavLink to="/signup" className="headerLink">
-//   Signup
-// </NavLink>
-// <NavLink to="/login" className="headerLink">
-//   Login
-// </NavLink> */}
 
 export default Navbar;

@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
 import "../pages/Store/store.css";
 
-function List({ products }) {
+function List({ products, setProducts }) {
   console.log(products);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
