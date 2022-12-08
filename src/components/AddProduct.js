@@ -10,7 +10,6 @@ function AddProduct({ setProducts, categories }) {
     image: "",
     slug: "",
   };
-  categories[0] ? defaultProduct.category = categories[0].name : defaultProduct.category = "";
   
   const [newProduct, setNewProduct] = useState(defaultProduct);
 
@@ -28,7 +27,8 @@ function AddProduct({ setProducts, categories }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      newProduct.slug = slugify(newProduct.name)
+      newProduct.slug = slugify(newProduct.name);
+      if (!newProduct.category) newProduct.category = categories[0].name;
       const resp = await axios.post("/products", newProduct);
       console.log("resp:", resp);
       setNewProduct(defaultProduct);
@@ -83,14 +83,22 @@ function AddProduct({ setProducts, categories }) {
           />
         </label>
         <br />
-        {categories[0] && <label>
-          Category:
-          <select value={newProduct.category} onChange={handleChange} name="category">
-            {categories.map((category) => (
-              <option key={category.slug} value={category.slug}>{category.name}</option>
-            ))}
-          </select>
-        </label>}
+        {categories[0] && (
+          <label>
+            Category:
+            <select
+              value={newProduct.category}
+              onChange={handleChange}
+              name="category"
+            >
+              {categories.map((category) => (
+                <option key={category.slug} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <button type="submit">Add New Product</button>
       </form>
     </div>

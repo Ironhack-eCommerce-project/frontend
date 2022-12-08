@@ -85,7 +85,7 @@ function EditProduct({ product, setEditButtonClicked, setProducts, categories })
           Category:
           <select value={editedProduct.category} onChange={handleChange} name="category">
             {categories.map((category) => (
-              <option key={category.slug} value={category.slug}>{category.name}</option>
+              <option key={category.slug} value={category.name}>{category.name}</option>
             ))}
           </select>
         </label>
