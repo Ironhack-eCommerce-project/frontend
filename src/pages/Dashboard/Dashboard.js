@@ -1,9 +1,10 @@
 import { useState } from "react";
+import AddCategory from "../../components/AddCategory";
 import AddProduct from "../../components/AddProduct";
 import DeleteProduct from "../../components/DeleteProduct";
 import EditProduct from "../../components/EditProduct";
 
-function Dashboard({ products, setProducts }) {
+function Dashboard({ products, setProducts, categories, setCategories }) {
 
   /* All Edit forms are opened, should only be the one clicked */
   const [editButtonClicked, setEditButtonClicked] = useState(false);
@@ -30,6 +31,7 @@ function Dashboard({ products, setProducts }) {
                     product={elem}
                     setEditButtonClicked={setEditButtonClicked}
                     setProducts={setProducts}
+                    categories={categories}
                   />
               )}
             </div>
@@ -37,7 +39,19 @@ function Dashboard({ products, setProducts }) {
         })}
       </ul>
       <h2>Add new Product</h2>
-      <AddProduct setProducts={setProducts} />
+      <AddProduct setProducts={setProducts} categories={categories} />
+      <h2>List of Categories</h2>
+      <ul>
+      {categories.map((elem) => {
+          return (
+            <div key={elem.name}>
+              <h3>{elem.name}</h3>              
+            </div>
+          );
+        })}
+      </ul>
+      <h2>Add new Category</h2>
+      <AddCategory setCategories={setCategories} />
     </div>
   );
 }

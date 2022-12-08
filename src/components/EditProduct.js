@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { replaceWhitespaces } from "../functions";
+import { slugify } from "../functions";
 
-function EditProduct({ product, setEditButtonClicked, setProducts }) {
+function EditProduct({ product, setEditButtonClicked, setProducts, categories }) {
   const [editedProduct, setEditedProduct] = useState(product);
 
   const handleChange = (e) => {
@@ -12,7 +12,7 @@ function EditProduct({ product, setEditButtonClicked, setProducts }) {
         newValue = parseFloat(e.target.value);
       }
       if (e.target.name === "slug") {
-        newValue = replaceWhitespaces(e.target.value, "-");
+        newValue = slugify(e.target.value);
       }
       return { ...old, [e.target.name]: newValue };
     });
@@ -21,6 +21,7 @@ function EditProduct({ product, setEditButtonClicked, setProducts }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      editedProduct.slug = slugify(editedProduct.name)
       const resp = await axios.put(`/products/${product.slug}`, editedProduct);
       console.log(resp);
 
@@ -82,20 +83,11 @@ function EditProduct({ product, setEditButtonClicked, setProducts }) {
         <br />
         <label>
           Category:
-          <input
-            name="category"
-            value={editedProduct.category}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Slug:
-          <input
-            name="slug"
-            value={editedProduct.slug}
-            onChange={handleChange}
-          />
+          <select value={editedProduct.category} onChange={handleChange} name="category">
+            {categories.map((category) => (
+              <option key={category.slug} value={category.name}>{category.name}</option>
+            ))}
+          </select>
         </label>
         <button type="submit">Save changes</button>
       </form>
