@@ -21,9 +21,6 @@ function AddProduct({ setProducts, categories }) {
       if (typeof old[e.target.name] === "number") {
         newValue = parseFloat(e.target.value);
       }
-      if (e.target.name === "slug") {
-        newValue = slugify(e.target.value);
-      }
       return { ...old, [e.target.name]: newValue };
     });
   };
@@ -31,6 +28,7 @@ function AddProduct({ setProducts, categories }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      newProduct.slug = slugify(newProduct.name)
       const resp = await axios.post("/products", newProduct);
       console.log("resp:", resp);
       setNewProduct(defaultProduct);
@@ -93,11 +91,6 @@ function AddProduct({ setProducts, categories }) {
             ))}
           </select>
         </label>}
-        <br />
-        <label>
-          Slug:
-          <input name="slug" value={newProduct.slug} onChange={handleChange} />
-        </label>
         <button type="submit">Add New Product</button>
       </form>
     </div>

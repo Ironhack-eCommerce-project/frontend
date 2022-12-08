@@ -22,6 +22,7 @@ function AddCategory({ setCategories }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      newCategory.slug = slugify(newCategory.name)
       const resp = await axios.post("/categories", newCategory);
       console.log("resp:", resp);
       setNewCategory(defaultCategory);
@@ -44,12 +45,6 @@ function AddCategory({ setCategories }) {
         <label>
           Name:
           <input name="name" value={newCategory.name} onChange={handleChange} />
-        </label>
-        <br />
-        
-        <label>
-          Slug:
-          <input name="slug" value={newCategory.slug} onChange={handleChange} />
         </label>
         <button type="submit">Add New Category</button>
       </form>

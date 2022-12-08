@@ -21,6 +21,7 @@ function EditProduct({ product, setEditButtonClicked, setProducts, categories })
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      editedProduct.slug = slugify(editedProduct.name)
       const resp = await axios.put(`/products/${product.slug}`, editedProduct);
       console.log(resp);
 
@@ -87,15 +88,6 @@ function EditProduct({ product, setEditButtonClicked, setProducts, categories })
               <option key={category.slug} value={category.slug}>{category.name}</option>
             ))}
           </select>
-        </label>
-        <br />
-        <label>
-          Slug:
-          <input
-            name="slug"
-            value={editedProduct.slug}
-            onChange={handleChange}
-          />
         </label>
         <button type="submit">Save changes</button>
       </form>
