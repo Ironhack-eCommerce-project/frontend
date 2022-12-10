@@ -4,6 +4,7 @@ import "./App.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import ItemDetails from "./pages/ItemDetails/ItemDetails";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Profile from "./pages/Auth/Profile";
@@ -49,6 +50,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/store"
             element={<Store products={products} setProducts={setProducts} />}
