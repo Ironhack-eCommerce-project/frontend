@@ -4,13 +4,37 @@ import "./App.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import ItemDetails from "./pages/ItemDetails/ItemDetails";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
 import Profile from "./pages/Auth/Profile";
 import Store from "./pages/Store/Store";
-import ItemDetails from "./pages/ItemDetails/ItemDetails";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("/products");
+      const data = await result.data;
+      setProducts(data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("/categories");
+      const data = await result.data;
+      setCategories(data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Box
       display="flex"
@@ -27,8 +51,22 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/store" element={<Store />} />
+          <Route
+            path="/store"
+            element={<Store products={products} setProducts={setProducts} />}
+          />
           <Route path="/store/:slug" element={<ItemDetails />} />
+          <Route
+            path="/dashboard"
+            element={
+              <Dashboard
+                products={products}
+                setProducts={setProducts}
+                categories={categories}
+                setCategories={setCategories}
+              />
+            }
+          />
         </Routes>
       </Container>
       <Footer />
