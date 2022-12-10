@@ -91,25 +91,3 @@ function Login() {
 }
 
 export default Login;
-
-// <label>
-//   E-Mail:
-//   <input
-//     type="email"
-//     name="email"
-//     value={user.email}
-//     onChange={handleChange}
-//   />
-// </label>
-// <br />
-// <label>
-//   Password:
-//   <input
-//     type="password"
-//     name="password"
-//     value={user.password}
-//     onChange={handleChange}
-//   />
-// </label>
-// <br />
-// <button type="submit">Log in</button>

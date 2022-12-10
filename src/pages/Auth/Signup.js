@@ -8,7 +8,7 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { LockOutlined, Google } from "@mui/icons-material";
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -34,18 +34,22 @@ function Signup() {
     setUser(defaultUser);
   }
 
-  function checkIfEmailUnique(username) {
-    console.log("check DB");
+  function googleAuth() {
+    window.location.href = `http://localhost:5000/users/google/callback`;
   }
 
-  function validEmail(str) {
-    return /\S+@\S+\.\S+/.test(str);
-  }
+  // function checkIfEmailUnique(username) {
+  //   console.log("check DB");
+  // }
+
+  // function validEmail(str) {
+  //   return /\S+@\S+\.\S+/.test(str);
+  // }
 
   //PW should have at least 6 characters, incl a number, one uppercase letter and one lowercase
-  function checkPasswordStrength(str) {
-    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(str);
-  }
+  // function checkPasswordStrength(str) {
+  //   return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(str);
+  // }
 
   useEffect(() => {
     console.log(user);
@@ -71,14 +75,14 @@ function Signup() {
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           <Avatar>
-            <LockOutlinedIcon />
+            <LockOutlined />
           </Avatar>
           <h2>Signup</h2>
           <form onSubmit={handleSubmit}>
             <FormControl variant="standard" fullWidth>
               <InputLabel>Email</InputLabel>
               <Input
-                id="component-simple"
+                id="email"
                 type="email"
                 name="email"
                 value={user.email}
@@ -89,7 +93,7 @@ function Signup() {
             <FormControl variant="standard" fullWidth>
               <InputLabel>Password</InputLabel>
               <Input
-                id="component-simple"
+                id="passsword"
                 type="password"
                 name="password"
                 value={user.password}
@@ -103,6 +107,16 @@ function Signup() {
               fullWidth
             >
               Login
+            </Button>
+            <Button
+              onClick={googleAuth}
+              variant="contained"
+              type="button"
+              sx={{ background: "", color: "white", margin: "1em 0" }}
+              fullWidth
+            >
+              {" "}
+              <Google /> Login with Google
             </Button>
             <Typography>
               Already have an account? <Link to={"/login"}>Login</Link>
