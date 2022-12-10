@@ -1,30 +1,36 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { slugify } from "../functions";
 
-function EditProduct({ product, setEditButtonClicked, setProducts, categories }) {
+function EditProduct({
+  product,
+  setEditProductButtonClicked,
+  setProducts,
+  categories,
+}) {
   const [editedProduct, setEditedProduct] = useState(product);
 
   const handleChange = (e) => {
     setEditedProduct((old) => {
       let newValue = e.target.value;
+      console.log("EPCN", editedProduct.category.name)
       if (typeof old[e.target.name] === "number") {
         newValue = parseFloat(e.target.value);
       }
-      if (e.target.name === "slug") {
-        newValue = slugify(e.target.value);
+      if (e.target.name === "category") {
+        console.log("ETARGET: ", e.target.name, e.target.value, editedProduct.category.name)
       }
       return { ...old, [e.target.name]: newValue };
     });
   };
+  useEffect(() => console.log(editedProduct.category.name), [editedProduct])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      editedProduct.slug = slugify(editedProduct.name)
+      editedProduct.slug = slugify(editedProduct.name);
       const resp = await axios.put(`/products/${product.slug}`, editedProduct);
-      console.log(resp);
-
+      console.log(resp);      
       /* As in Add/Delete Product the following function just to refresh what is shown. Should probably be improved in the future */
       const fetchData = async () => {
         const result = await axios.get("/products");
@@ -32,8 +38,7 @@ function EditProduct({ product, setEditButtonClicked, setProducts, categories })
         setProducts(data);
       };
       fetchData();
-
-      setEditButtonClicked(false)
+      setEditProductButtonClicked(false);
     } catch (error) {
       console.log(error);
     }
@@ -83,9 +88,15 @@ function EditProduct({ product, setEditButtonClicked, setProducts, categories })
         <br />
         <label>
           Category:
-          <select value={editedProduct.category} onChange={handleChange} name="category">
+          <select
+            value={editedProduct.category.name}
+            onChange={handleChange}
+            name="category"
+          >
             {categories.map((category) => (
-              <option key={category.slug} value={category.name}>{category.name}</option>
+              <option key={category.slug} value={category._id}>
+                {category.name}
+              </option>
             ))}
           </select>
         </label>

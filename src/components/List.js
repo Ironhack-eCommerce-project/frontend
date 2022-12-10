@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
 import "../pages/Store/store.css";
 
-function List({ products, setProducts }) {
+function List({ products }) {
   console.log(products);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid
+      {products[0].name && (<Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 1, sm: 8, md: 12, xl: 12 }}
@@ -20,13 +20,13 @@ function List({ products, setProducts }) {
               <Link to={`/store/${elem.slug}`}>
                 <img src={elem.image} alt={elem.name} className="listItemImg" />
               </Link>
-              <Typography>{elem.category}</Typography>
+              <Typography>{elem.category.name}</Typography>
               <Typography>{elem.name}</Typography>
               <Typography>€ {elem.price}</Typography>
             </Grid>
           );
         })}
-      </Grid>
+      </Grid>)}
     </Box>
   );
 }

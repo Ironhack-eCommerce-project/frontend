@@ -38,6 +38,7 @@ function AddProduct({ setProducts, categories }) {
         setProducts(data);
       };
       fetchData();
+
     } catch (error) {
       console.log(error.response.data);
     }
