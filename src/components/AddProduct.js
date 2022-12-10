@@ -10,7 +10,7 @@ function AddProduct({ setProducts, categories }) {
     image: "",
     slug: "",
   };
-  
+
   const [newProduct, setNewProduct] = useState(defaultProduct);
 
   /* Not sure that is the perfect solution, but now for the slug every whitespace is immediatly turned into a "-", already while typing  */
