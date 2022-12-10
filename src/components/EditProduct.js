@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { slugify } from "../functions";
 
 function EditProduct({
@@ -10,21 +10,20 @@ function EditProduct({
 }) {
   const [editedProduct, setEditedProduct] = useState(product);
 
-  /* const getCategoryFromId = (categoryId) => {
-    return categories.find(elem => elem._id === categoryId);
-  } */
-
-  console.log("EPC", editedProduct.category[0]);
-
   const handleChange = (e) => {
     setEditedProduct((old) => {
       let newValue = e.target.value;
+      console.log("EPCN", editedProduct.category.name)
       if (typeof old[e.target.name] === "number") {
         newValue = parseFloat(e.target.value);
+      }
+      if (e.target.name === "category") {
+        console.log("ETARGET: ", e.target.name, e.target.value, editedProduct.category.name)
       }
       return { ...old, [e.target.name]: newValue };
     });
   };
+  useEffect(() => console.log(editedProduct.category.name), [editedProduct])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,16 +89,12 @@ function EditProduct({
         <label>
           Category:
           <select
-            value={editedProduct.category
-               /* editedProduct.category[0]
-                ? getCategoryFromId(editedProduct.category[0]).name
-                : "" */
-            }
+            value={editedProduct.category.name}
             onChange={handleChange}
             name="category"
           >
             {categories.map((category) => (
-              <option key={category.slug} value={category.name}>
+              <option key={category.slug} value={category._id}>
                 {category.name}
               </option>
             ))}

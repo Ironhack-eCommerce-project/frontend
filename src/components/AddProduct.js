@@ -27,8 +27,8 @@ function AddProduct({ setProducts, categories }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      newProduct.slug = slugify(newProduct.name);/* 
-      if (!newProduct.category) newProduct.category = categories[0].name; */
+      newProduct.slug = slugify(newProduct.name);
+      if (!newProduct.category) newProduct.category = categories[0].name;
       const resp = await axios.post("/products", newProduct);
       console.log("resp:", resp);
       setNewProduct(defaultProduct);

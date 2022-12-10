@@ -15,7 +15,7 @@ import axios from "axios";
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  console.log("PRODUVTS: ", products)
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get("/products");
@@ -51,7 +51,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route
             path="/store"
-            element={<Store products={products} setProducts={setProducts} />}
+            element={<Store products={products} setProducts={setProducts} categories={categories} />}
           />
           <Route path="/store/:slug" element={<ItemDetails />} />
           <Route
