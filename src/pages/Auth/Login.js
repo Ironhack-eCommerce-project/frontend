@@ -9,22 +9,14 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { LockOutlined, Google } from "@mui/icons-material";
-// import GoogleIcon from "@mui/icons-material/Google";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
-
 function Login() {
   const defaultUser = {
     email: "",
     password: "",
   };
   const [user, setUser] = useState(defaultUser);
-
-  const paperStyle = {
-    padding: 20,
-    minHeight: "40vh",
-    width: 300,
-  };
 
   function handleChange(event) {
     setUser((old) => {
@@ -36,12 +28,16 @@ function Login() {
     console.log("CHECK DB AND LOG IN");
   }
 
-  function googleAuth() {
-    window.location.href = `http://localhost:5000/users/google`;
-  }
+  const paperStyle = {
+    padding: 20,
+    minHeight: "40vh",
+    width: 300,
+  };
 
   return (
     <Grid
+      component={"container"}
+      spacing={0}
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -51,14 +47,14 @@ function Login() {
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           <Avatar>
-            <LockOutlined />
+            <LockOutlinedIcon />
           </Avatar>
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <FormControl variant="standard" fullWidth>
               <InputLabel>Email</InputLabel>
               <Input
-                id="email"
+                id="component-simple"
                 type="email"
                 name="email"
                 value={user.email}
@@ -69,7 +65,7 @@ function Login() {
             <FormControl variant="standard" fullWidth>
               <InputLabel>Password</InputLabel>
               <Input
-                id="password"
+                id="component-simple"
                 type="password"
                 name="password"
                 value={user.password}
@@ -83,16 +79,6 @@ function Login() {
               fullWidth
             >
               Login
-            </Button>
-            <Button
-              onClick={googleAuth}
-              variant="contained"
-              type="button"
-              sx={{ background: "", color: "white", margin: "1em 0" }}
-              fullWidth
-            >
-              {" "}
-              <Google /> Login with Google
             </Button>
             <Typography>
               Don't have an account? <Link to={"/signup"}>Sign up</Link>
