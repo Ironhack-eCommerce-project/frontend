@@ -19,7 +19,7 @@ function Profile() {
         "http://localhost:5000/users/login/success",
         { withCredentials: true }
       );
-      setUser(data.user._json);
+      setUser(data.user);
     };
     getUser();
   }, []);
@@ -45,7 +45,7 @@ function Profile() {
     >
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
-          <Avatar alt="Profile Picture" src={user.picture} />
+          {/* <Avatar alt="Profile Picture" src={user.picture} /> */}
           <h2>Profile</h2>
           <FormControl variant="standard" fullWidth>
             <InputLabel>Email</InputLabel>
