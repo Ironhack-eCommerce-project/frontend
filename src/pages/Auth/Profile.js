@@ -35,6 +35,7 @@ function Profile() {
           "Content-Type": "application/json",
         },
       });
+      logoutUser();
       navigate("/");
     } catch (error) {
       console.warn(error);
@@ -63,14 +64,14 @@ function Profile() {
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           {/* <Avatar alt="Profile Picture" src={user.picture} /> */}
-          <h2>Profile of {user}</h2>
+          <h2>Profile of {user.name}</h2>
           <FormControl variant="standard" fullWidth>
             <InputLabel>Email</InputLabel>
             <Input
               id="email"
               type="email"
               name="email"
-              // value={user.email}
+              value={user.email}
               disabled
             />
           </FormControl>
