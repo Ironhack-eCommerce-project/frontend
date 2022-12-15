@@ -1,5 +1,5 @@
+import { SERVER_ORIGIN } from "../../consts.js";
 import {
-  Avatar,
   Button,
   FormControl,
   Grid,
@@ -8,25 +8,38 @@ import {
   Paper,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
 
 function Profile() {
-  const [user, setUser] = useState({});
+  const { user, logoutUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await axios.get(
-        "http://localhost:5000/users/login/success",
-        { withCredentials: true }
-      );
-      setUser(data.user._json);
-    };
-    getUser();
-  }, []);
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const { data } = await axios.get("http://localhost:5000/users/login", {
+  //       withCredentials: true,
+  //     });
+  //     setUser(data.user);
+  //   };
+  //   getUser();
+  // }, []);
 
-  function logout() {
-    window.location.href = `http://localhost:5000/users/logout`;
-  }
+  const logout = async () => {
+    try {
+      await axios.post(SERVER_ORIGIN + "/users/logout", {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      navigate("/");
+    } catch (error) {
+      console.warn(error);
+    }
+  };
 
   const paperStyle = {
     padding: 20,
@@ -35,6 +48,10 @@ function Profile() {
     margin: "10px auto",
   };
 
+  // if (!user) {
+  //   navigate("/login");
+  //   return null;
+  // }
   return (
     <Grid
       display="flex"
@@ -45,15 +62,15 @@ function Profile() {
     >
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
-          <Avatar alt="Profile Picture" src={user.picture} />
-          <h2>Profile</h2>
+          {/* <Avatar alt="Profile Picture" src={user.picture} /> */}
+          <h2>Profile of {user}</h2>
           <FormControl variant="standard" fullWidth>
             <InputLabel>Email</InputLabel>
             <Input
               id="email"
               type="email"
               name="email"
-              value={user.email}
+              // value={user.email}
               disabled
             />
           </FormControl>
