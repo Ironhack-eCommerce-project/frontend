@@ -39,7 +39,7 @@ function Navbar() {
   };
 
   return (
-    <AppBar sx={{ background: "#ff5151" }} position="sticky">
+    <AppBar sx={{ background: "#000" }} position="sticky">
       <Container spacing={0} maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
