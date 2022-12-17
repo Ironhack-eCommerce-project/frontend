@@ -1,26 +1,25 @@
 import { Link } from "react-router-dom";
 import { Box, Grid, Typography } from "@mui/material";
 import "../pages/Store/store.css";
-import { useEffect, useState } from "react";
+import axios from "axios";
+import { useState } from "react";
 
-function List({ products, setCartProducts, cartProducts }) {
-  console.log(products);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+function List({ products }) {
+  console.log(products);  
+  const [addCartProducts, setAddCartProducts] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    setCartProducts({...cartProducts, ...(selectedProducts)});
-    setSelectedProducts([]);
-  }
-
-  const handleChange = (e) => {
-    let prod = e.target.id;
-    let amount = parseInt(e.target.value)
-    const obj={[prod]: amount}
-    setSelectedProducts({...selectedProducts, ...(obj)})
-  }
-  useEffect(() => console.log("selectedProd: ", selectedProducts), [selectedProducts])
-  useEffect(() => console.log("cartProd: ", cartProducts), [cartProducts])
+    console.log(e.target.id);
+    const addedProduct = e.target.id;
+    console.log("addedProd", addedProduct);
+    setAddCartProducts([...addCartProducts, addedProduct]);
+    console.log("CartProducts", addCartProducts)
+    const resp = await axios.post("/cart", addCartProducts, {
+      withCredentials: true,
+    });
+    console.log("resp:", resp);
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -45,10 +44,7 @@ function List({ products, setCartProducts, cartProducts }) {
                 <Typography>{elem.category.name}</Typography>
                 <Typography>{elem.name}</Typography>
                 <Typography>€ {elem.price}</Typography>
-                <form onSubmit={handleSubmit} >
-                  <input onChange={handleChange} id={elem._id} type="number" min="0" />
-                  <button type="submit">Put in Cart</button>
-                </form>
+                <button id={elem._id} onClick={handleClick}>Put in Cart</button>
               </Grid>
             );
           })}

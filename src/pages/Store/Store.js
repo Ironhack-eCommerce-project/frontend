@@ -4,7 +4,7 @@ import FilterByCategory from "../../components/FilterByCategory";
 import List from "../../components/List";
 import "./store.css";
 
-function Store({ products, categories, setProducts, cartProducts, setCartProducts }) {
+function Store({ products, categories }) {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([products]);
   console.log("FILTERED PROD", filteredProducts);
@@ -29,8 +29,6 @@ function Store({ products, categories, setProducts, cartProducts, setCartProduct
         {filteredProducts[0] && (
           <List
             products={filteredProducts}
-            setCartProducts={setCartProducts}
-            cartProducts={cartProducts}
           />
         )}
       </Container>

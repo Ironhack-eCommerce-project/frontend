@@ -16,8 +16,7 @@ import Cart from "./pages/Cart/Cart";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [cartProducts, setCartProducts] = useState([]);
+  const [categories, setCategories] = useState([]);  
   console.log("PRODUCTS: ", products);
 
   useEffect(() => {
@@ -56,7 +55,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route
             path="/store"
-            element={<Store products={products} setProducts={setProducts} categories={categories} cartProducts={cartProducts} setCartProducts={setCartProducts} />}
+            element={<Store products={products} setProducts={setProducts} categories={categories} />}
           />
           <Route path="/store/:slug" element={<ItemDetails />} />
           <Route
@@ -73,10 +72,7 @@ function App() {
           <Route
             path="/cart"
             element={
-              <Cart
-                cartProducts={cartProducts}
-                setCartProducts={setCartProducts}
-              />
+              <Cart />
             }
           />
         </Routes>
