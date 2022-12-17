@@ -50,7 +50,7 @@ function Signup() {
   };
 
   function googleAuth() {
-    window.location.href = `http://localhost:5000/users/google/callback`;
+    window.location.href = `http://localhost:5000/users/google`;
   }
 
   // function checkIfEmailUnique(username) {

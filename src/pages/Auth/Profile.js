@@ -1,5 +1,6 @@
 import { SERVER_ORIGIN } from "../../consts.js";
 import {
+  //Avatar,
   Button,
   FormControl,
   Grid,
@@ -8,23 +9,24 @@ import {
   Paper,
 } from "@mui/material";
 import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext.js";
 
 function Profile() {
   const { user, logoutUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const { data } = await axios.get("http://localhost:5000/users/login", {
-  //       withCredentials: true,
-  //     });
-  //     setUser(data.user);
-  //   };
-  //   getUser();
-  // }, []);
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await axios.get(
+        "http://localhost:5000/users/login/success",
+        { withCredentials: true }
+      );
+      setUser(data.user);
+    };
+    getUser();
+  }, []);
 
   const logout = async () => {
     try {
@@ -47,6 +49,7 @@ function Profile() {
     width: "70vw",
     margin: "10px auto",
   };
+  console.log("USER: ", user)
 
   // if (!user) {
   //   navigate("/login");
@@ -63,7 +66,7 @@ function Profile() {
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           {/* <Avatar alt="Profile Picture" src={user.picture} /> */}
-          <h2>Profile of {user}</h2>
+          <h2>Profile</h2>
           <FormControl variant="standard" fullWidth>
             <InputLabel>Email</InputLabel>
             <Input

@@ -12,11 +12,13 @@ import Store from "./pages/Store/Store";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  console.log("PRODUVTS: ", products)
+  const [cartProducts, setCartProducts] = useState([]);
+  console.log("PRODUCTS: ", products);
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get("/products");
@@ -53,7 +55,15 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route
             path="/store"
-            element={<Store products={products} setProducts={setProducts} categories={categories} />}
+            element={
+              <Store
+                products={products}
+                setProducts={setProducts}
+                categories={categories}
+                cartProducts={cartProducts}
+                setCartProducts={setCartProducts}
+              />
+            }
           />
           <Route path="/store/:slug" element={<ItemDetails />} />
           <Route
@@ -64,6 +74,15 @@ function App() {
                 setProducts={setProducts}
                 categories={categories}
                 setCategories={setCategories}
+              />
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                cartProducts={cartProducts}
+                setCartProducts={setCartProducts}
               />
             }
           />
