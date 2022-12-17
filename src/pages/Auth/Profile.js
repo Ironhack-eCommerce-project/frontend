@@ -1,75 +1,88 @@
-import { SERVER_ORIGIN } from "../../consts.js";
-import { Button, FormControl, Grid, Input, InputLabel, Paper } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import { useEffect, useState } from "react";
+import { slugify } from "../../functions";
 
-function Profile() {
-  const { user, logoutUser } = useContext(UserContext);
-  const navigate = useNavigate();
+function EditProduct({ product, setEditProductButtonClicked, setProducts, categories }) {
+  const [editedProduct, setEditedProduct] = useState(product);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await axios.get("http://localhost:5000/users/login/success", {
-        withCredentials: true,
-      });
-      setUser(data.user);
-    };
-    getUser();
-  }, []);
+  const handleChange = (e) => {
+    setEditedProduct((old) => {
+      let newValue = e.target.value;
+      console.log("EPCN", editedProduct.category.name);
+      if (typeof old[e.target.name] === "number") {
+        newValue = parseFloat(e.target.value);
+      }
+      if (e.target.name === "category") {
+        console.log("ETARGET: ", e.target.name, e.target.value, editedProduct.category.name);
+      }
+      return { ...old, [e.target.name]: newValue };
+    });
+  };
+  useEffect(() => console.log(editedProduct.category.name), [editedProduct]);
 
-  const logout = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await axios.post(SERVER_ORIGIN + "/users/logout", {
-        withCredentials: true,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
-      logoutUser();
-      navigate("/");
+      editedProduct.slug = slugify(editedProduct.name);
+      const resp = await axios.put(`/products/${product.slug}`, editedProduct);
+      console.log(resp);
+      /* As in Add/Delete Product the following function just to refresh what is shown. Should probably be improved in the future */
+      const fetchData = async () => {
+        const result = await axios.get("/products");
+        const data = await result.data;
+        setProducts(data);
+      };
+      fetchData();
+      setEditProductButtonClicked(false);
     } catch (error) {
-      console.warn(error);
+      console.log(error);
     }
   };
 
-  const paperStyle = {
-    padding: 20,
-    height: "40vh",
-    width: "70vw",
-    margin: "10px auto",
-  };
-
-  // if (!user) {
-  //   navigate("/login");
-  //   return null;
-  // }
   return (
-    <Grid display="flex" alignItems="center" justifyContent="center" minHeight={"100%"} margin="0">
-      <Paper elevation={3} style={paperStyle}>
-        <Grid align="center">
-          {/* <Avatar alt="Profile Picture" src={user.picture} /> */}
-          <h2>Profile of {user.name}</h2>
-          <FormControl variant="standard" fullWidth>
-            <InputLabel>Email</InputLabel>
-            <Input id="email" type="email" name="email" value={user.email} disabled />
-          </FormControl>
-
-          <Button
-            onClick={logout}
-            variant="contained"
-            type="button"
-            sx={{ background: "#ff5151", color: "white", margin: "2em 0" }}
-            fullWidth
-          >
-            Logout
-          </Button>
-        </Grid>
-      </Paper>
-    </Grid>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input name="name" value={editedProduct.name} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Description:
+          <input name="description" value={editedProduct.description} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Price:
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            name="price"
+            value={editedProduct.price}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label>
+          Image:
+          <input name="image" value={editedProduct.image} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Category:
+          <select value={editedProduct.category.name} onChange={handleChange} name="category">
+            {categories.map((category) => (
+              <option key={category.slug} value={category._id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button type="submit">Save changes</button>
+      </form>
+    </div>
   );
 }
 
-export default Profile;
+export default EditProduct;
