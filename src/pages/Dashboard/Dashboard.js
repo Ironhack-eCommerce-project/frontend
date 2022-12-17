@@ -16,6 +16,7 @@ import { useState } from "react";
 import AddCategory from "../../components/AddCategory";
 import AddProduct from "../../components/AddProduct";
 import DeleteProduct from "../../components/DeleteProduct";
+import EditCategory from "../../components/EditCategory";
 import EditProduct from "../../components/EditProduct";
 import { Link } from "react-router-dom";
 
@@ -30,7 +31,8 @@ const itemsList = [
 
 function Dashboard({ products, setProducts, categories, setCategories }) {
   /* All Edit forms are opened, should only be the one clicked */
-  const [editButtonClicked, setEditButtonClicked] = useState(false);
+  const [editProductButtonClicked, setEditProductButtonClicked] = useState(false);
+  const [editCategoryButtonClicked, setEditCategoryButtonClicked] = useState(false);
 
   const handleClick = (e) => {
     setEditButtonClicked(!editButtonClicked);
@@ -68,10 +70,7 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
         </List>
         <Divider />
       </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-      >
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
         <h2>List of Products</h2>
         <ul>
           {products.map((elem) => {
