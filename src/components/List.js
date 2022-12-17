@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import "../pages/Store/store.css";
 
 function List({ products }) {
   console.log(products);
@@ -9,7 +8,6 @@ function List({ products }) {
     <Box sx={{ flexGrow: 1 }}>
       {products[0].name && (
         <Grid
-          container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 1, sm: 8, md: 12, xl: 12 }}
           justifyContent="space-evenly"
