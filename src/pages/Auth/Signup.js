@@ -1,3 +1,4 @@
+import { SERVER_ORIGIN } from "../../consts.js";
 import {
   Avatar,
   Button,
@@ -10,29 +11,43 @@ import {
 } from "@mui/material";
 import { LockOutlined, Google } from "@mui/icons-material";
 
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const defaultUser = {
+  email: "",
+  password: "",
+};
 
 function Signup() {
-  const defaultUser = {
-    email: "",
-    password: "",
-  };
   const [user, setUser] = useState(defaultUser);
+  const navigate = useNavigate();
 
-  function handleChange(event) {
+  function handleChange(e) {
     setUser((old) => {
-      let newValue = event.target.value;
-      return { ...old, [event.target.name]: newValue };
+      let newValue = e.target.value;
+      return { ...old, [e.target.name]: newValue };
     });
   }
 
-  function handleSubmit(event) {
-    //check Username + PW
-    //save User in DB
-    //log User in
-    setUser(defaultUser);
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(user.email);
+    try {
+      const resp = await axios.post(SERVER_ORIGIN + "/users/signup", user, {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(resp.data);
+      navigate("/profile");
+    } catch (error) {
+      console.log(error.resp);
+    }
+  };
 
   function googleAuth() {
     window.location.href = `http://localhost:5000/users/google/callback`;
@@ -51,21 +66,14 @@ function Signup() {
   //   return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(str);
   // }
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const paperStyle = {
     padding: 20,
     height: "40vh",
     width: 300,
-    margin: "10px auto",
   };
 
   return (
     <Grid
-      component={"container"}
-      spacing={0}
       display="flex"
       alignItems="center"
       justifyContent="center"
@@ -85,6 +93,7 @@ function Signup() {
                 id="email"
                 type="email"
                 name="email"
+                placeholder="Enter your email"
                 value={user.email}
                 onChange={handleChange}
               />
@@ -96,6 +105,7 @@ function Signup() {
                 id="passsword"
                 type="password"
                 name="password"
+                placeholder="Enter your password"
                 value={user.password}
                 onChange={handleChange}
               />
@@ -103,10 +113,10 @@ function Signup() {
             <Button
               variant="contained"
               type="submit"
-              sx={{ background: "#ff5151", color: "white", margin: "2em 0" }}
+              sx={{ background: "#ff5151", color: "white", margin: "1em 0" }}
               fullWidth
             >
-              Login
+              Signup
             </Button>
             <Button
               onClick={googleAuth}
@@ -115,8 +125,7 @@ function Signup() {
               sx={{ background: "", color: "white", margin: "1em 0" }}
               fullWidth
             >
-              {" "}
-              <Google /> Login with Google
+              <Google /> Sugnup with Google
             </Button>
             <Typography>
               Already have an account? <Link to={"/login"}>Login</Link>
