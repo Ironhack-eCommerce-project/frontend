@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 
 function FilterByCategory({ categories, selectedCategoryId, setSelectedCategoryId }) {
-
   const handleChange = (e) => {
-    setSelectedCategoryId(e.target.value);    
+    setSelectedCategoryId(e.target.value);
   };
-  useEffect(() => console.log("SELECTED CATEGORY", selectedCategoryId, typeof selectedCategoryId), [selectedCategoryId])
+  useEffect(
+    () => console.log("SELECTED CATEGORY", selectedCategoryId, typeof selectedCategoryId),
+    [selectedCategoryId]
+  );
   return (
     <div>
       <label>

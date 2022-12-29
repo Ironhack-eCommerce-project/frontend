@@ -7,10 +7,8 @@ import EditProduct from "../../components/EditProduct";
 
 function Dashboard({ products, setProducts, categories, setCategories }) {
   /* All Edit forms are opened, should only be the one clicked */
-  const [editProductButtonClicked, setEditProductButtonClicked] =
-    useState(false);
-  const [editCategoryButtonClicked, setEditCategoryButtonClicked] =
-    useState(false);
+  const [editProductButtonClicked, setEditProductButtonClicked] = useState(false);
+  const [editCategoryButtonClicked, setEditCategoryButtonClicked] = useState(false);
 
   const handleProductEditClick = (e) => {
     setEditProductButtonClicked(!editProductButtonClicked);
@@ -29,7 +27,7 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
           return (
             <div key={elem.name}>
               <h3>{elem.name}</h3>
-              <DeleteProduct elem={elem} setProducts={setProducts} />              
+              <DeleteProduct elem={elem} setProducts={setProducts} />
               {editProductButtonClicked && (
                 <EditProduct
                   product={elem}
@@ -50,12 +48,16 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
         {categories.map((elem) => {
           return (
             <div key={elem.name}>
-              <h3>{elem.name}</h3>              
+              <h3>{elem.name}</h3>
               {editCategoryButtonClicked && (
-                <EditCategory category={elem} setCategories={setCategories} setEditCategoryButtonClicked={setEditCategoryButtonClicked} />
+                <EditCategory
+                  category={elem}
+                  setCategories={setCategories}
+                  setEditCategoryButtonClicked={setEditCategoryButtonClicked}
+                />
               )}
-            </div>            
-          );          
+            </div>
+          );
         })}
       </ul>
       <button onClick={handleCategoryEditClick}>Edit Categories</button>

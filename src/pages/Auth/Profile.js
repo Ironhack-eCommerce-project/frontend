@@ -1,12 +1,5 @@
 import { SERVER_ORIGIN } from "../../consts.js";
-import {
-  Button,
-  FormControl,
-  Grid,
-  Input,
-  InputLabel,
-  Paper,
-} from "@mui/material";
+import { Button, FormControl, Grid, Input, InputLabel, Paper } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -15,16 +8,6 @@ import { UserContext } from "../../context/UserContext";
 function Profile() {
   const { user, logoutUser } = useContext(UserContext);
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const { data } = await axios.get("http://localhost:5000/users/login", {
-  //       withCredentials: true,
-  //     });
-  //     setUser(data.user);
-  //   };
-  //   getUser();
-  // }, []);
 
   const logout = async () => {
     try {
@@ -54,26 +37,14 @@ function Profile() {
   //   return null;
   // }
   return (
-    <Grid
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      minHeight={"100%"}
-      margin="0"
-    >
+    <Grid display="flex" alignItems="center" justifyContent="center" minHeight={"100%"} margin="0">
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           {/* <Avatar alt="Profile Picture" src={user.picture} /> */}
           <h2>Profile of {user.name}</h2>
           <FormControl variant="standard" fullWidth>
             <InputLabel>Email</InputLabel>
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              value={user.email}
-              disabled
-            />
+            <Input id="email" type="email" name="email" value={user.email} disabled />
           </FormControl>
 
           <Button
