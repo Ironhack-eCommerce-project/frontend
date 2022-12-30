@@ -19,7 +19,7 @@ function Profile() {
         },
       });
       logoutUser();
-      navigate("/");
+      navigate("/store");
     } catch (error) {
       console.warn(error);
     }
@@ -32,10 +32,11 @@ function Profile() {
     margin: "10px auto",
   };
 
-  // if (!user) {
-  //   navigate("/login");
-  //   return null;
-  // }
+  if (!user) {
+    navigate("/login");
+    return null;
+  }
+
   return (
     <Grid display="flex" alignItems="center" justifyContent="center" minHeight={"100%"} margin="0">
       <Paper elevation={3} style={paperStyle}>

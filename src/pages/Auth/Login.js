@@ -1,5 +1,5 @@
 import { SERVER_ORIGIN } from "../../consts.js";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import axios from "axios";
@@ -29,31 +29,16 @@ const paperStyle = {
 function Login() {
   const [user, setUser] = useState(defaultUser);
   const navigate = useNavigate();
-  const { loginUser } = useContext(UserContext);
+  const { loginUser, adminUser } = useContext(UserContext);
 
-  const sendToServer = async () => {
-    try {
-      const result = await axios.post(
-        SERVER_ORIGIN + "/users/login",
-        JSON.stringify(user),
-        {
-          withCredentials: true,
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await result.data;
-      console.log(data);
-
-      loginUser(data);
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      loginUser(foundUser);
       navigate("/profile");
-    } catch (error) {
-      console.log(error);
     }
-    setUser(defaultUser);
-  };
+  });
 
   const handleChange = (e) => {
     setUser((old) => {
@@ -65,6 +50,29 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     sendToServer();
+  };
+
+  const sendToServer = async () => {
+    try {
+      const result = await axios.post(SERVER_ORIGIN + "/users/login", JSON.stringify(user), {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await result.data;
+      loginUser(data);
+      // localStorage.setItem("user", JSON.stringify(data));
+      console.log(data);
+      if (data.isAdmin === true) {
+        adminUser(true);
+      }
+      navigate("/profile", { replace: true });
+    } catch (error) {
+      console.log(error);
+    }
+    // setUser(defaultUser);
   };
 
   function googleAuth() {
