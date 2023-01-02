@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import FilterByCategory from "../../components/FilterByCategory";
 import List from "../../components/List";
@@ -14,13 +14,16 @@ function Store({ products, categories }) {
       ? setFilteredProducts(
           products.filter((elem) => elem.category._id === selectedCategoryId)
         )
+
       : setFilteredProducts(products);
   }, [selectedCategoryId, products]);
 
   return (
     <>
-      <Container>
+      <Box>
         <h1>Products</h1>
+      </Box>
+      <Box>
         <FilterByCategory
           categories={categories}
           selectedCategoryId={selectedCategoryId}
@@ -32,6 +35,7 @@ function Store({ products, categories }) {
           />
         )}
       </Container>
+
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { Box, Grid, Typography } from "@mui/material";
 import "../pages/Store/store.css";
 import axios from "axios";
 import { useState } from "react";
+import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 
 function List({ products }) {
   console.log(products);  
@@ -25,7 +25,6 @@ function List({ products }) {
     <Box sx={{ flexGrow: 1 }}>
       {products[0].name && (
         <Grid
-          container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 1, sm: 8, md: 12, xl: 12 }}
           justifyContent="space-evenly"
@@ -46,6 +45,16 @@ function List({ products }) {
                 <Typography>€ {elem.price}</Typography>
                 <button id={elem._id} onClick={handleClick}>Put in Cart</button>
               </Grid>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea component={Link} to={`/store/${elem.slug}`}>
+                  <CardMedia component="img" height="200" image={elem.image} alt={elem.name} />
+                  <CardContent>
+                    <Typography>{elem.category}</Typography>
+                    <Typography>{elem.name}</Typography>
+                    <Typography sx={{ fontWeight: "bold" }}>€ {elem.price}</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
             );
           })}
         </Grid>
