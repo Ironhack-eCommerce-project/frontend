@@ -13,24 +13,29 @@ function EditProduct({
   const handleChange = (e) => {
     setEditedProduct((old) => {
       let newValue = e.target.value;
-      console.log("EPCN", editedProduct.category.name)
+      console.log("EPCN", editedProduct.category.name);
       if (typeof old[e.target.name] === "number") {
         newValue = parseFloat(e.target.value);
       }
       if (e.target.name === "category") {
-        console.log("ETARGET: ", e.target.name, e.target.value, editedProduct.category.name)
+        console.log(
+          "ETARGET: ",
+          e.target.name,
+          e.target.value,
+          editedProduct.category.name
+        );
       }
       return { ...old, [e.target.name]: newValue };
     });
   };
-  useEffect(() => console.log(editedProduct.category.name), [editedProduct])
+  useEffect(() => console.log(editedProduct.category.name), [editedProduct]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       editedProduct.slug = slugify(editedProduct.name);
       const resp = await axios.put(`/products/${product.slug}`, editedProduct);
-      console.log(resp);      
+      console.log(resp);
       /* As in Add/Delete Product the following function just to refresh what is shown. Should probably be improved in the future */
       const fetchData = async () => {
         const result = await axios.get("/products");
@@ -89,15 +94,23 @@ function EditProduct({
         <label>
           Category:
           <select
-            value={editedProduct.category.name}
+            
             onChange={handleChange}
             name="category"
+            value={editedProduct.category._id}
           >
-            {categories.map((category) => (
-              <option key={category.slug} value={category._id}>
-                {category.name}
-              </option>
-            ))}
+            {categories.map((category) => {
+              console.log("THIS", editedProduct.category._id, category._id);
+              return (
+                <option
+                  key={category.slug}
+                  value={category._id}
+                  
+                >
+                  {category.name}
+                </option>
+              );
+            })}
           </select>
         </label>
         <button type="submit">Save changes</button>

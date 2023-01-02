@@ -12,11 +12,13 @@ import Store from "./pages/Store/Store";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  console.log("PRODUVTS: ", products)
+  const [categories, setCategories] = useState([]);  
+  console.log("PRODUCTS: ", products);
+
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get("/products");
@@ -64,7 +66,13 @@ function App() {
                 setProducts={setProducts}
                 categories={categories}
                 setCategories={setCategories}
-              />
+              />              
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Cart />
             }
           />
         </Routes>
