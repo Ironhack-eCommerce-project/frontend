@@ -50,7 +50,7 @@ function Signup() {
   };
 
   function googleAuth() {
-    window.location.href = `http://localhost:5000/users/google/callback`;
+    window.location.href = SERVER_ORIGIN + "/users/google";
   }
 
   // function checkIfEmailUnique(username) {
@@ -73,13 +73,7 @@ function Signup() {
   };
 
   return (
-    <Grid
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      minHeight={"100vh"}
-      margin="0"
-    >
+    <Grid display="flex" alignItems="center" justifyContent="center" minHeight={"100vh"} margin="0">
       <Paper elevation={3} style={paperStyle}>
         <Grid align="center">
           <Avatar>
@@ -125,7 +119,7 @@ function Signup() {
               sx={{ background: "", color: "white", margin: "1em 0" }}
               fullWidth
             >
-              <Google /> Sugnup with Google
+              <Google /> Signup with Google
             </Button>
             <Typography>
               Already have an account? <Link to={"/login"}>Login</Link>
