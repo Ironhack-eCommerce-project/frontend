@@ -64,8 +64,9 @@ function Login() {
       const data = await result.data;
       loginUser(data);
       // localStorage.setItem("user", JSON.stringify(data));
-      console.log(data);
-      if (data.isAdmin === true) {
+      if (!data.isAdmin) {
+        adminUser(false);
+      } else {
         adminUser(true);
       }
       navigate("/profile", { replace: true });

@@ -11,74 +11,162 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-
-const pages = ["Home", "Store", "Categories", "Dashboard"];
-
-const settings = ["Login"];
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function Navbar() {
-  const { isAdmin, user } = useContext(UserContext);
+  const { user, isAdmin } = useContext(UserContext);
 
-  // const [anchorElNav, setAnchorElNav] = useState(null);
-  // const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  // };
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
-    <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
+    <AppBar sx={{ background: "#000" }} position="sticky">
+      <Container spacing={0} maxWidth="xl">
+        <Toolbar disableGutters>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <MenuItem component={Link} to={"/store"} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">Store</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+          <ShoppingBagIcon sx={{ display: { xs: "flex" }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component={Link}
+            to="/store"
+            sx={{
+              mr: 2,
+              display: { xs: "flex" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
+            eCommerce
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {/* <Button component={Link} to="/" sx={{ my: 2, color: "white", display: "block" }}>
+              Home
+            </Button> */}
+            <Button component={Link} to="/store" sx={{ my: 2, color: "white", display: "block" }}>
+              Store
+            </Button>
+            {user && isAdmin && (
+              <Button
+                component={Link}
+                to="/dashboard"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Dashboard
+              </Button>
+            )}
+          </Box>
+          {user && isAdmin && (
+            <>
+              <Typography
+                sx={{
+                  mr: 2,
+                  // display: { xs: "flex" },
+                  // flexGrow: 1,
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+              >
+                ADMIN
+              </Typography>
+            </>
+          )}
+          <Box sx={{ flexGrow: 0 }}>
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="" src="" />
+            </IconButton>
 
-      {/*    UPDATE     */}
-      {user && (
-        <>
-          <Link to="/store">
-            <button>Store</button>
-          </Link>
-          <Link to="/profile">
-            <button>Profile</button>
-          </Link>
-        </>
-      )}
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {user && (
+                <MenuItem component={Link} to="/profile" onClick={handleCloseUserMenu}>
+                  Profile
+                </MenuItem>
+              )}
 
-      {isAdmin && (
-        <>
-          <Link to="/dashboard">
-            <button>Dashboard</button>
-          </Link>
-        </>
-      )}
-
-      {!user && (
-        <>
-          <Link to="/signup">
-            {" "}
-            <button>Sign Up</button>{" "}
-          </Link>
-          <Link to="/login">
-            {" "}
-            <button>Login</button>{" "}
-          </Link>
-        </>
-      )}
-    </nav>
+              {!user && (
+                <MenuItem component={Link} to="/login" onClick={handleCloseUserMenu}>
+                  Login
+                </MenuItem>
+              )}
+            </Menu>
+          </Box>
+          <ShoppingCartIcon sx={{ display: { xs: "flex" }, ml: 2 }} />
+          <span>0</span>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 
   // return (

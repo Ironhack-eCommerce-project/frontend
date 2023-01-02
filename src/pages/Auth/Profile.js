@@ -52,7 +52,7 @@ function Profile() {
             onClick={logout}
             variant="contained"
             type="button"
-            sx={{ background: "#ff5151", color: "white", margin: "2em 0" }}
+            sx={{ background: "#000", color: "white", margin: "2em 0" }}
             fullWidth
           >
             Logout
