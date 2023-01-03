@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Box, FormControl, InputLabel, NativeSelect } from "@mui/material";
 
 function FilterByCategory({ categories, selectedCategoryId, setSelectedCategoryId }) {
   const handleChange = (e) => {
@@ -9,21 +10,23 @@ function FilterByCategory({ categories, selectedCategoryId, setSelectedCategoryI
     [selectedCategoryId]
   );
   return (
-    <div>
-      <label>
-        Filter by Category:
+    <Box>
+      <FormControl fullWidth>
+        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+          Filter by Category
+        </InputLabel>
         {categories[0] && (
-          <select onChange={handleChange}>
+          <NativeSelect onChange={handleChange}>
             <option>Show all</option>
             {categories.map((category) => (
               <option key={category._id} value={category._id}>
                 {category.name}
               </option>
             ))}
-          </select>
+          </NativeSelect>
         )}
-      </label>
-    </div>
+      </FormControl>
+    </Box>
   );
 }
 

@@ -14,6 +14,8 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Tooltip from "@mui/material/Tooltip";
+import Badge from "@mui/material/Badge";
 
 function Navbar() {
   const { user, isAdmin } = useContext(UserContext);
@@ -162,8 +164,19 @@ function Navbar() {
               )}
             </Menu>
           </Box>
-          <ShoppingCartIcon sx={{ display: { xs: "flex" }, ml: 2 }} />
-          <span>0</span>
+          <Tooltip title="See cart">
+            <IconButton
+              sx={{ mx: 1 }}
+              aria-label="cart"
+              color="inherit"
+              component={Link}
+              to="/cart"
+            >
+              <Badge badgeContent="0" color="error">
+                <ShoppingCartIcon sx={{ fontSize: 30 }} />
+              </Badge>{" "}
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </Container>
     </AppBar>
