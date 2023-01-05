@@ -1,3 +1,4 @@
+import { Button, Grid, Input, InputLabel, Paper } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { slugify } from "../functions";
@@ -8,7 +9,7 @@ function AddCategory({ setCategories }) {
     slug: "",
   };
   const [newCategory, setNewCategory] = useState(defaultCategory);
-  
+
   const handleChange = (e) => {
     setNewCategory((old) => {
       let newValue = e.target.value;
@@ -22,7 +23,7 @@ function AddCategory({ setCategories }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      newCategory.slug = slugify(newCategory.name)
+      newCategory.slug = slugify(newCategory.name);
       const resp = await axios.post("/categories", newCategory);
       console.log("resp:", resp);
       setNewCategory(defaultCategory);
@@ -40,15 +41,21 @@ function AddCategory({ setCategories }) {
   useEffect(() => console.log(newCategory), [newCategory]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input name="name" value={newCategory.name} onChange={handleChange} />
-        </label>
-        <button type="submit">Add New Category</button>
-      </form>
-    </div>
+    <>
+      <Paper>
+        <form onSubmit={handleSubmit}>
+          <Grid container alignItems="left" justify="left" direction="column" padding={2} gap={3}>
+            <InputLabel>Category Name</InputLabel>
+            <Input name="name" value={newCategory.name} onChange={handleChange} />
+            <Grid item>
+              <Button variant="contained" color="error" type="submit">
+                Add Category
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </>
   );
 }
 

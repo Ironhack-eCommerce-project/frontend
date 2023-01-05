@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Box, Container, Divider, Grid, List, ListItem, Paper } from "@mui/material";
+import { Fragment, useState } from "react";
 import AddCategory from "../../components/AddCategory";
 import AddProduct from "../../components/AddProduct";
 import DeleteProduct from "../../components/DeleteProduct";
@@ -20,50 +21,63 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
   };
 
   return (
-    <div>
-      <h2>List of Products</h2>
-      <ul>
-        {products.map((elem) => {
-          return (
-            <div key={elem.name}>
-              <h3>{elem.name}</h3>
-              <DeleteProduct elem={elem} setProducts={setProducts} />
-              {editProductButtonClicked && (
-                <EditProduct
-                  product={elem}
-                  setProducts={setProducts}
-                  categories={categories}
-                  setEditProductButtonClicked={setEditProductButtonClicked}
-                />
-              )}
-            </div>
-          );
-        })}
-      </ul>
-      <button onClick={handleProductEditClick}>Edit Products</button>
-      <h2>Add new Product</h2>
-      <AddProduct setProducts={setProducts} categories={categories} />
+    <Container>
+      <Box sx={{ mx: 3, my: 3 }}>
+        <h2>List of Products</h2>
+        <ul>
+          {products.map((elem) => {
+            return (
+              <div key={elem.name}>
+                <h3>{elem.name}</h3>
+                <DeleteProduct elem={elem} setProducts={setProducts} />
+                {editProductButtonClicked && (
+                  <EditProduct
+                    product={elem}
+                    setProducts={setProducts}
+                    categories={categories}
+                    setEditProductButtonClicked={setEditProductButtonClicked}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </ul>
+        <button onClick={handleProductEditClick}>Edit Products</button>
+        <Divider variant="middle" />
+        <h2>Add new Product</h2>
+        <AddProduct setProducts={setProducts} categories={categories} />
+      </Box>
+      <Divider variant="middle" />
+
       <h2>List of Categories</h2>
-      <ul>
-        {categories.map((elem) => {
-          return (
-            <div key={elem.name}>
-              <h3>{elem.name}</h3>
-              {editCategoryButtonClicked && (
-                <EditCategory
-                  category={elem}
-                  setCategories={setCategories}
-                  setEditCategoryButtonClicked={setEditCategoryButtonClicked}
-                />
-              )}
-            </div>
-          );
-        })}
-      </ul>
-      <button onClick={handleCategoryEditClick}>Edit Categories</button>
+      <Paper>
+        <Grid container gap={2}>
+          <>
+            {categories.map((elem) => {
+              return (
+                <List key={elem.name}>
+                  <ListItem>{elem.name}</ListItem>
+
+                  {editCategoryButtonClicked && (
+                    <EditCategory
+                      category={elem}
+                      setCategories={setCategories}
+                      setEditCategoryButtonClicked={setEditCategoryButtonClicked}
+                    />
+                  )}
+                  <Divider variant="middle" />
+                </List>
+              );
+            })}
+          </>
+        </Grid>
+
+        <button onClick={handleCategoryEditClick}>Edit Categories</button>
+      </Paper>
+      <Divider variant="middle" />
       <h2>Add new Category</h2>
       <AddCategory setCategories={setCategories} />
-    </div>
+    </Container>
   );
 }
 

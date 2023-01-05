@@ -13,11 +13,14 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cart from "./pages/Cart/Cart";
+import AddProduct from "./components/AddProduct";
+import CheckoutSuccess from "./pages/Cart/CheckoutSuccess";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);  
-  console.log("PRODUCTS: ", products);
+  const [categories, setCategories] = useState([]);
+  // console.log("PRODUCTS: ", products);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +58,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route
             path="/store"
-            element={<Store products={products} setProducts={setProducts} categories={categories} />}
+            element={
+              <Store products={products} setProducts={setProducts} categories={categories} />
+            }
           />
           <Route path="/store/:slug" element={<ItemDetails />} />
           <Route
@@ -66,15 +71,13 @@ function App() {
                 setProducts={setProducts}
                 categories={categories}
                 setCategories={setCategories}
-              />              
+              />
             }
           />
-          <Route
-            path="/cart"
-            element={
-              <Cart />
-            }
-          />
+          <Route path="/addproduct" element={<AddProduct />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
       <Footer />
