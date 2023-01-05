@@ -37,7 +37,7 @@ function List({ products }) {
         <Grid container spacing={4} py={3}>
           {products.map((elem) => {
             return (
-              <Grid item xs={12} sm={6} lg={3} key={elem.slug}>
+              <Grid item xs={12} sm={6} md={4} lg={4} key={elem.slug}>
                 <Card raised>
                   <CardActionArea component={Link} to={`/store/${elem.slug}`}>
                     <CardMedia component="img" height="260" image={elem.image} alt={elem.name} />

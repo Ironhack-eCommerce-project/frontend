@@ -1,3 +1,13 @@
+import {
+  Button,
+  Grid,
+  Input,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextareaAutosize,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { slugify } from "../functions";
@@ -38,7 +48,6 @@ function AddProduct({ setProducts, categories }) {
         setProducts(data);
       };
       fetchData();
-
     } catch (error) {
       console.log(error.response.data);
     }
@@ -47,62 +56,64 @@ function AddProduct({ setProducts, categories }) {
   useEffect(() => console.log(newProduct), [newProduct]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input name="name" value={newProduct.name} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
-            name="description"
-            value={newProduct.description}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Price:
-          <input
-            type="number"
-            min="0"
-            step="0.01"
-            name="price"
-            value={newProduct.price}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Image:
-          <input
-            name="image"
-            value={newProduct.image}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        {categories[0] && (
-          <label>
-            Category:
-            <select
-              value={newProduct.category}
+    <>
+      <Paper>
+        <form onSubmit={handleSubmit}>
+          <Grid container alignItems="left" justify="left" direction="column" padding={2} gap={3}>
+            <InputLabel>Name</InputLabel>
+            <Input name="name" value={newProduct.name} onChange={handleChange} />
+
+            <InputLabel>Description</InputLabel>
+            <TextareaAutosize
+              minRows={3}
+              name="description"
+              value={newProduct.description}
               onChange={handleChange}
-              name="category"
-            >
-              {categories.map((category) => (
-                <option key={category.slug} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-        <button type="submit">Add New Product</button>
-      </form>
-    </div>
+            />
+
+            <InputLabel>Price</InputLabel>
+            <Input
+              type="number"
+              min="0"
+              step="0.01"
+              name="price"
+              value={newProduct.price}
+              onChange={handleChange}
+            />
+
+            <Grid item>
+              <InputLabel>Image</InputLabel>
+              <Input
+                type="file"
+                accept="image/*"
+                hidden
+                name="image"
+                value={newProduct.image}
+                onChange={handleChange}
+              />
+            </Grid>
+
+            <Grid item>
+              <InputLabel>Category</InputLabel>
+              {categories[0] && (
+                <Select value={newProduct.category} onChange={handleChange} name="category">
+                  {categories.map((category) => (
+                    <MenuItem key={category.slug} value={category.name}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              )}
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="error" type="submit">
+                Add New Product
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </>
   );
 }
 

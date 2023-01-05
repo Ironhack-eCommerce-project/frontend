@@ -13,6 +13,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cart from "./pages/Cart/Cart";
+import AddProduct from "./components/AddProduct";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -71,6 +72,7 @@ function App() {
               />
             }
           />
+          <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </Container>

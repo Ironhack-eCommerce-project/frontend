@@ -32,18 +32,13 @@ function ItemDetails() {
         <Grid container mt={5} spacing={3}>
           {product && (
             <>
-              <Grid item sm={6} md={4}>
+              <Grid item sm={6} md={4} lg={6}>
                 <Card raised>
                   <CardMedia component="img" image={product.image} alt={product.name} />
                 </Card>
-                <Box display="flex" justifyContent="flex-end" mt={1} alignContent="right">
-                  <Typography component="h5" variant="h6" textAlign="center">
-                    {product.price} €
-                  </Typography>
-                </Box>
               </Grid>
 
-              <Grid item xs={12} sm={6} md={8}>
+              <Grid item xs={12} sm={6} md={8} lg={6}>
                 <Typography variant="h5" textAlign="left" gutterBottom>
                   {product.name}
                 </Typography>
@@ -52,12 +47,17 @@ function ItemDetails() {
                   <Typography variant="paragraph" component="p">
                     {product.description}
                   </Typography>
+                  <Box display="flex" mt={1}>
+                    <Typography component="h6" variant="h6">
+                      {product.price} €
+                    </Typography>
+                  </Box>
                 </Grid>
 
                 <Divider sx={{ mb: 2 }} />
 
                 <input type="number" />
-                <Box display="flex" justifyContent={"center"} my>
+                <Box display="flex" my>
                   <Button
                     variant="contained"
                     color="error"
