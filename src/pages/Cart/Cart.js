@@ -1,11 +1,9 @@
 // import { unstable_createCssVarsProvider } from "@mui/system";
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 import {
   Box,
-  Button,
   Container,
   Divider,
   FormHelperText,
@@ -14,8 +12,8 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PayButton from "../../utils/PayButton";
 
 function Cart() {
   const [productsInCart, setProductsInCart] = useState([]);
@@ -46,7 +44,7 @@ function Cart() {
               {productsInCart[0] &&
                 productsInCart.map((elem) => {
                   return (
-                    <Fragment key={elem._id}>
+                    <Fragment>
                       <Grid
                         item
                         xs={12}
@@ -118,15 +116,7 @@ function Cart() {
         </Container>
 
         <Box display="flex" gap justifyContent={"center"} my>
-          <Button
-            variant="contained"
-            color="error"
-            component={Link}
-            to=""
-            startIcon={<PointOfSaleIcon />}
-          >
-            Checkout
-          </Button>
+          <PayButton cartItems={productsInCart} />
         </Box>
       </>
     </>

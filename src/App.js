@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Cart from "./pages/Cart/Cart";
 import AddProduct from "./components/AddProduct";
+import CheckoutSuccess from "./pages/Cart/CheckoutSuccess";
+import NotFound from "./components/NotFound";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -74,6 +76,8 @@ function App() {
           />
           <Route path="/addproduct" element={<AddProduct />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
       <Footer />
