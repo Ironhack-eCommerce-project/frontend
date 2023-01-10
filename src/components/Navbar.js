@@ -17,7 +17,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Tooltip from "@mui/material/Tooltip";
 import Badge from "@mui/material/Badge";
 
-function Navbar() {
+function Navbar({ productsInCart }) {
   const { user, isAdmin } = useContext(UserContext);
 
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -37,6 +37,9 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const numberOfItemsInCart = productsInCart.length;
+  console.log("Number of Items in Cart: ", numberOfItemsInCart);
 
   return (
     <AppBar sx={{ background: "#000" }} position="static">
@@ -172,7 +175,7 @@ function Navbar() {
               component={Link}
               to="/cart"
             >
-              <Badge badgeContent="0" color="error">
+              <Badge badgeContent={numberOfItemsInCart || "0"} color="error">
                 <ShoppingCartIcon sx={{ fontSize: 30 }} />
               </Badge>{" "}
             </IconButton>

@@ -20,7 +20,16 @@ import NotFound from "./components/NotFound";
 function App() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  // console.log("PRODUCTS: ", products);
+  const [productsInCart, setProductsInCart] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("/cart");
+      const data = await result.data;
+      setProductsInCart(data);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +57,7 @@ function App() {
       justifyContent="center"
       margin="0"
     >
-      <Navbar />
+      <Navbar productsInCart={productsInCart} />
       <Container>
         <Routes>
           <Route index element={<Home />} />
@@ -59,7 +68,13 @@ function App() {
           <Route
             path="/store"
             element={
-              <Store products={products} setProducts={setProducts} categories={categories} />
+              <Store
+                products={products}
+                setProducts={setProducts}
+                categories={categories}
+                setProductsInCart={setProductsInCart}
+                productsInCart={productsInCart}
+              />
             }
           />
           <Route path="/store/:slug" element={<ItemDetails />} />
@@ -75,7 +90,10 @@ function App() {
             }
           />
           <Route path="/addproduct" element={<AddProduct />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/cart"
+            element={<Cart productsInCart={productsInCart} />}
+          />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
