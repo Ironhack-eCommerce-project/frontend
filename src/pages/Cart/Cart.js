@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
+// import { unstable_createCssVarsProvider } from "@mui/system";
+import { Fragment } from "react";
 
 import {
   Box,
@@ -14,22 +16,10 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
 
-function Cart() {
-  const [productsInCart, setProductsInCart] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get("/cart");
-      const data = await result.data;
-      setProductsInCart(data);
-    };
-    fetchData();
-  }, []);
-
-  const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
-
-  console.log("Total Price", totalPrice);
-  console.log("Products in Cart: ", productsInCart);
+function Cart({ productsInCart }) {
+  const totalPrice = productsInCart
+    .reduce((acc, curr) => acc + curr.price, 0)
+    .toFixed(2);
 
   return (
     <>
@@ -43,7 +33,7 @@ function Cart() {
               {productsInCart[0] &&
                 productsInCart.map((elem) => {
                   return (
-                    <Fragment>
+                    <Fragment >
                       <Grid
                         item
                         xs={12}
@@ -81,7 +71,9 @@ function Cart() {
                       >
                         <Box>
                           <FormHelperText>Price</FormHelperText>
-                          <Typography variant="inherit">{elem.price} €</Typography>
+                          <Typography variant="inherit">
+                            {elem.price} €
+                          </Typography>
                         </Box>
                       </Grid>
 

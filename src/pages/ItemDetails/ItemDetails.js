@@ -1,15 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import EditProduct from "../../components/EditProduct";
 import "./itemDetails.css";
 
 import { Box, Button, Card, CardMedia, Container, Divider, Grid, Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function ItemDetails() {
-  const [product, setProduct] = useState({});
-  const [editButtonClicked, setEditButtonClicked] = useState(false);
+  const [product, setProduct] = useState({});  
   const { slug } = useParams();
 
   useEffect(() => {

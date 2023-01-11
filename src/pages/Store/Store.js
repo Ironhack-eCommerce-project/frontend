@@ -5,14 +5,16 @@ import FilterByCategory from "../../components/FilterByCategory";
 import List from "../../components/List";
 import "./store.css";
 
-function Store({ products, categories }) {
+function Store({ products, categories, setProductsInCart, productsInCart }) {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([products]);
   console.log("FILTERED PROD", filteredProducts);
 
   useEffect(() => {
     selectedCategoryId !== "Show all" && selectedCategoryId !== ""
-      ? setFilteredProducts(products.filter((elem) => elem.category._id === selectedCategoryId))
+      ? setFilteredProducts(
+          products.filter((elem) => elem.category._id === selectedCategoryId)
+        )
       : setFilteredProducts(products);
   }, [selectedCategoryId, products]);
 
@@ -28,7 +30,13 @@ function Store({ products, categories }) {
             selectedCategoryId={selectedCategoryId}
             setSelectedCategoryId={setSelectedCategoryId}
           />
-          {filteredProducts[0] && <List products={filteredProducts} />}
+          {filteredProducts[0] && (
+            <List
+              products={filteredProducts}
+              setProductsInCart={setProductsInCart}
+              productsInCart={productsInCart}
+            />
+          )}
         </Box>
       </Container>
     </>
