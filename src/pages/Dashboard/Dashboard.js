@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Grid, List, ListItem, Paper } from "@mui/material";
+import { Box, Button, Container, Divider, Grid, List, ListItem, Paper } from "@mui/material";
 import { Fragment, useState } from "react";
 import AddCategory from "../../components/AddCategory";
 import AddProduct from "../../components/AddProduct";
@@ -23,26 +23,28 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
   return (
     <Container>
       <Box sx={{ mx: 3, my: 3 }}>
-        <h2>List of Products</h2>
-        <ul>
-          {products.map((elem) => {
-            return (
-              <div key={elem.name}>
-                <h3>{elem.name}</h3>
-                <DeleteProduct elem={elem} setProducts={setProducts} />
-                {editProductButtonClicked && (
-                  <EditProduct
-                    product={elem}
-                    setProducts={setProducts}
-                    categories={categories}
-                    setEditProductButtonClicked={setEditProductButtonClicked}
-                  />
-                )}
-              </div>
-            );
-          })}
-        </ul>
-        <button onClick={handleProductEditClick}>Edit Products</button>
+        <Paper>
+          <h2>List of Products</h2>
+          <ul>
+            {products.map((elem) => {
+              return (
+                <div key={elem.name}>
+                  <h3>{elem.name}</h3>
+                  <DeleteProduct elem={elem} setProducts={setProducts} />
+                  {editProductButtonClicked && (
+                    <EditProduct
+                      product={elem}
+                      setProducts={setProducts}
+                      categories={categories}
+                      setEditProductButtonClicked={setEditProductButtonClicked}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </ul>
+          <button onClick={handleProductEditClick}>Edit Products</button>
+        </Paper>
         <Divider variant="middle" />
         <h2>Add new Product</h2>
         <AddProduct setProducts={setProducts} categories={categories} />
@@ -72,7 +74,9 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
           </>
         </Grid>
 
-        <button onClick={handleCategoryEditClick}>Edit Categories</button>
+        <Button variant="contained" onClick={handleCategoryEditClick}>
+          Edit Categories
+        </Button>
       </Paper>
       <Divider variant="middle" />
       <h2>Add new Category</h2>

@@ -20,7 +20,7 @@ const UserProvider = ({ children }) => {
 
   const logoutUser = () => {
     setUser(null);
-    // localStorage.removeItem("user", user);
+    localStorage.removeItem("user", user);
   };
 
   return (

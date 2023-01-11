@@ -2,12 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { slugify } from "../functions";
 
-function EditProduct({
-  product,
-  setEditProductButtonClicked,
-  setProducts,
-  categories,
-}) {
+function EditProduct({ product, setEditProductButtonClicked, setProducts, categories }) {
   const [editedProduct, setEditedProduct] = useState(product);
 
   const handleChange = (e) => {
@@ -18,12 +13,7 @@ function EditProduct({
         newValue = parseFloat(e.target.value);
       }
       if (e.target.name === "category") {
-        console.log(
-          "ETARGET: ",
-          e.target.name,
-          e.target.value,
-          editedProduct.category.name
-        );
+        console.log("ETARGET: ", e.target.name, e.target.value, editedProduct.category.name);
       }
       return { ...old, [e.target.name]: newValue };
     });
@@ -53,25 +43,17 @@ function EditProduct({
     <div>
       <form onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input
-            name="name"
-            value={editedProduct.name}
-            onChange={handleChange}
-          />
+          Name
+          <input name="name" value={editedProduct.name} onChange={handleChange} />
         </label>
         <br />
         <label>
-          Description:
-          <input
-            name="description"
-            value={editedProduct.description}
-            onChange={handleChange}
-          />
+          Description
+          <input name="description" value={editedProduct.description} onChange={handleChange} />
         </label>
         <br />
         <label>
-          Price:
+          Price
           <input
             type="number"
             min="0"
@@ -83,30 +65,17 @@ function EditProduct({
         </label>
         <br />
         <label>
-          Image:
-          <input
-            name="image"
-            value={editedProduct.image}
-            onChange={handleChange}
-          />
+          Image
+          <input name="image" value={editedProduct.image} onChange={handleChange} />
         </label>
         <br />
         <label>
-          Category:
-          <select
-            
-            onChange={handleChange}
-            name="category"
-            value={editedProduct.category._id}
-          >
+          Category
+          <select onChange={handleChange} name="category" value={editedProduct.category._id}>
             {categories.map((category) => {
               console.log("THIS", editedProduct.category._id, category._id);
               return (
-                <option
-                  key={category.slug}
-                  value={category._id}
-                  
-                >
+                <option key={category.slug} value={category._id}>
                   {category.name}
                 </option>
               );
