@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { SERVER_ORIGIN } from "../consts";
 import { slugify } from "../functions";
 
 function AddProduct({ setProducts, categories }) {
@@ -22,6 +23,39 @@ function AddProduct({ setProducts, categories }) {
   };
 
   const [newProduct, setNewProduct] = useState(defaultProduct);
+
+  const [fileInput, setFileInput] = useState("");
+  const [previewSource, setPreviewSource] = useState();
+  const [selectedFile, setSelectedFile] = useState("");
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+    setFileInput(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
+  const uploadImage = async () => {
+    const uploadUrl = SERVER_ORIGIN + "/images/upload";
+    const formData = new FormData();
+    formData.append("file", fileInput);
+    const resp = await axios.post(uploadUrl, formData, {
+      withCredentials: true,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    console.log(resp.data);
+    setSelectedFile(resp.data);
+  };
 
   /* Not sure that is the perfect solution, but now for the slug every whitespace is immediatly turned into a "-", already while typing  */
   const handleChange = (e) => {
@@ -39,6 +73,8 @@ function AddProduct({ setProducts, categories }) {
     try {
       newProduct.slug = slugify(newProduct.name);
       if (!newProduct.category) newProduct.category = categories[0].name;
+      if (!previewFile) return;
+      newProduct.image = selectedFile;
       const resp = await axios.post("/products", newProduct);
       console.log("resp:", resp);
       setNewProduct(defaultProduct);
@@ -83,14 +119,35 @@ function AddProduct({ setProducts, categories }) {
 
             <Grid item>
               <InputLabel>Image</InputLabel>
-              <Input
+              {/*<Input
                 type="file"
                 accept="image/*"
                 hidden
                 name="image"
+                value={fileInput}
+                onChange={handleFileInputChange}
+              /> */}
+              <Input
+                // hidden
+                accept="image/*"
+                name="image"
+                type="file"
                 value={newProduct.image}
-                onChange={handleChange}
+                onChange={handleFileInputChange}
               />
+              <Button
+                variant="contained"
+                component="label"
+                color="error"
+                onClick={() => uploadImage()}
+              >
+                Upload
+              </Button>
+            </Grid>
+            <Grid item>
+              {previewSource && (
+                <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+              )}
             </Grid>
 
             <Grid item>

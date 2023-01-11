@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Box, Container } from "@mui/material";
 import "./App.css";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ItemDetails from "./pages/ItemDetails/ItemDetails";
@@ -16,10 +16,37 @@ import Cart from "./pages/Cart/Cart";
 import AddProduct from "./components/AddProduct";
 import CheckoutSuccess from "./pages/Cart/CheckoutSuccess";
 import NotFound from "./components/NotFound";
+import { SERVER_ORIGIN } from "./consts";
 
 function App() {
+  const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+
+  const getUser = async () => {
+    try {
+      const result = await axios.get(SERVER_ORIGIN + "/users/login/success", {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await result.data;
+      setUser(data.user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  console.log(user);
+
+  // console.log("PRODUCTS: ", products);
+
   const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
@@ -64,7 +91,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile user={user} />} />
           <Route
             path="/store"
             element={
@@ -98,7 +125,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   );
 }

@@ -32,27 +32,3 @@ function PayButton({ cartItems }) {
 }
 
 export default PayButton;
-
-// const sendToServer = async () => {
-//   try {
-//     const result = await axios.post(SERVER_ORIGIN + "/users/login", JSON.stringify(user), {
-//       withCredentials: true,
-//       headers: {
-//         "Access-Control-Allow-Origin": "*",
-//         "Content-Type": "application/json",
-//       },
-//     });
-//     const data = await result.data;
-//     loginUser(data);
-//     // localStorage.setItem("user", JSON.stringify(data));
-//     if (!data.isAdmin) {
-//       adminUser(false);
-//     } else {
-//       adminUser(true);
-//     }
-//     navigate("/profile", { replace: true });
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   // setUser(defaultUser);
-// };

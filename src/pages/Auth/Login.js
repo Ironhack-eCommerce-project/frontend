@@ -47,11 +47,6 @@ function Login() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    sendToServer();
-  };
-
   const sendToServer = async () => {
     try {
       const result = await axios.post(SERVER_ORIGIN + "/users/login", JSON.stringify(user), {
@@ -63,7 +58,7 @@ function Login() {
       });
       const data = await result.data;
       loginUser(data);
-      // localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       if (!data.isAdmin) {
         adminUser(false);
       } else {
@@ -74,6 +69,11 @@ function Login() {
       console.log(error);
     }
     // setUser(defaultUser);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    sendToServer();
   };
 
   function googleAuth() {
