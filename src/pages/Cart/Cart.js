@@ -18,7 +18,10 @@ function Cart({ productsInCart }) {
   const totalPrice = productsInCart
     .reduce((acc, curr) => acc + curr.price, 0)
     .toFixed(2);
-
+  console.log("IMPORTANT Prodcut in cart: ", productsInCart[0])
+  const handleClick = (e) => {
+    console.log("click", e.currentTarget.id)
+  }
   return (
     <>
       <h2>Cart</h2>
@@ -31,7 +34,7 @@ function Cart({ productsInCart }) {
               {productsInCart[0] &&
                 productsInCart.map((elem) => {
                   return (
-                    <Fragment >
+                    <Fragment key={elem._id}>
                       <Grid
                         item
                         xs={12}
@@ -41,7 +44,7 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <img src={elem.image} alt={elem.name} width="150" />
+                        <img src={elem.product.image} alt={elem.product.name} width="150" />
                       </Grid>
                       <Grid
                         item
@@ -54,7 +57,7 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Typography variant="inherit">{elem.name}</Typography>
+                        <Typography variant="inherit">{elem.product.name}</Typography>
                       </Grid>
                       <Grid
                         item
@@ -70,7 +73,7 @@ function Cart({ productsInCart }) {
                         <Box>
                           <FormHelperText>Price</FormHelperText>
                           <Typography variant="inherit">
-                            {elem.price} €
+                            {elem.product.price} €
                           </Typography>
                         </Box>
                       </Grid>
@@ -87,7 +90,7 @@ function Cart({ productsInCart }) {
                         alignContent="center"
                       >
                         <Tooltip title="Remove" placement="top">
-                          <IconButton>
+                          <IconButton onClick={handleClick} id={elem._id} >
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>

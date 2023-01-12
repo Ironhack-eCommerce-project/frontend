@@ -16,10 +16,10 @@ import { useEffect, useState } from "react";
 
 function List({ products, setProductsInCart, productsInCart }) {
   const [productToCart, setProductToCart] = useState({});
-
+  
   const handleClick = async (e) => {
     e.preventDefault();
-    const addedProduct = e.target.id;
+    const addedProduct = { product: e.target.id };
     setProductToCart({ addedProduct });
     const resp = await axios.post("/cart", productToCart, {
       withCredentials: true,
