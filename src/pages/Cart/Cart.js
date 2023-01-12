@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 
 import {
   Box,
@@ -15,9 +15,7 @@ import PayButton from "../../utils/PayButton";
 import axios from "axios";
 
 function Cart({ productsInCart, setProductsInCart }) {
-  const totalPrice = productsInCart
-    .reduce((acc, curr) => acc + curr.product.price, 0)
-    .toFixed(2);
+  const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.product.price, 0).toFixed(2);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -54,7 +52,6 @@ function Cart({ productsInCart, setProductsInCart }) {
               {productsInCart[0] &&
                 productsInCart.map((elem, index) => {
                   return (
-
                     <Fragment key={elem._id}>
                       <Grid
                         item
@@ -65,11 +62,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <img
-                          src={elem.product.image}
-                          alt={elem.product.name}
-                          width="150"
-                        />
+                        <img src={elem.product.image} alt={elem.product.name} width="150" />
                       </Grid>
                       <Grid
                         item
@@ -82,9 +75,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Typography variant="inherit">
-                          {elem.product.name}
-                        </Typography>
+                        <Typography variant="inherit">{elem.product.name}</Typography>
                       </Grid>
                       <Grid
                         item
@@ -99,9 +90,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                       >
                         <Box>
                           <FormHelperText>Price</FormHelperText>
-                          <Typography variant="inherit">
-                            {elem.product.price} €
-                          </Typography>
+                          <Typography variant="inherit">{elem.product.price} €</Typography>
                         </Box>
                       </Grid>
 

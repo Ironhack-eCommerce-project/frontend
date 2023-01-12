@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Box, Container, CssBaseline, GlobalStyles } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import "./App.css";
 // import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -119,12 +119,7 @@ function App() {
           <Route path="/addproduct" element={<AddProduct />} />
           <Route
             path="/cart"
-            element={
-              <Cart
-                productsInCart={productsInCart}
-                setProductsInCart={setProductsInCart}
-              />
-            }
+            element={<Cart productsInCart={productsInCart} setProductsInCart={setProductsInCart} />}
           />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="*" element={<NotFound />} />
