@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Box, Container } from "@mui/material";
+import { Box, Container, CssBaseline, GlobalStyles } from "@mui/material";
 import "./App.css";
 // import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -77,56 +77,57 @@ function App() {
   }, []);
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      margin="0"
-    >
-      <Navbar productsInCart={productsInCart} />
-      <Container>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile user={user} />} />
-          <Route
-            path="/store"
-            element={
-              <Store
-                products={products}
-                setProducts={setProducts}
-                categories={categories}
-                setProductsInCart={setProductsInCart}
-                productsInCart={productsInCart}
-              />
-            }
-          />
-          <Route path="/store/:slug" element={<ItemDetails />} />
-          <Route
-            path="/dashboard"
-            element={
-              <Dashboard
-                products={products}
-                setProducts={setProducts}
-                categories={categories}
-                setCategories={setCategories}
-              />
-            }
-          />
-          <Route path="/addproduct" element={<AddProduct />} />
-          <Route
-            path="/cart"
-            element={<Cart productsInCart={productsInCart} />}
-          />
-          <Route path="/checkout-success" element={<CheckoutSuccess />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Container>
-      {/* <Footer /> */}
-    </Box>
+    <>
+      <CssBaseline />
+      <GlobalStyles styles={{ body: { backgroundColor: "#ffffffcc" } }} />
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        margin="0"
+      >
+        <Navbar productsInCart={productsInCart} />
+        <Container>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile user={user} />} />
+            <Route
+              path="/store"
+              element={
+                <Store
+                  products={products}
+                  setProducts={setProducts}
+                  categories={categories}
+                  setProductsInCart={setProductsInCart}
+                  productsInCart={productsInCart}
+                />
+              }
+            />
+            <Route path="/store/:slug" element={<ItemDetails />} />
+            <Route
+              path="/dashboard"
+              element={
+                <Dashboard
+                  products={products}
+                  setProducts={setProducts}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+              }
+            />
+            <Route path="/addproduct" element={<AddProduct />} />
+            <Route path="/cart" element={<Cart productsInCart={productsInCart} />} />
+            <Route path="/checkout-success" element={<CheckoutSuccess />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Container>
+        {/* <Footer /> */}
+      </Box>
+    </>
   );
 }
 

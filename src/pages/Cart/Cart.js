@@ -1,7 +1,4 @@
-import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
-// import { unstable_createCssVarsProvider } from "@mui/system";
-import { Fragment } from "react";
 
 import {
   Box,
@@ -17,9 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
 
 function Cart({ productsInCart }) {
-  const totalPrice = productsInCart
-    .reduce((acc, curr) => acc + curr.price, 0)
-    .toFixed(2);
+  const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
 
   return (
     <>
@@ -31,9 +26,9 @@ function Cart({ productsInCart }) {
           <Grid container gap={2}>
             <>
               {productsInCart[0] &&
-                productsInCart.map((elem) => {
+                productsInCart.map((elem, index) => {
                   return (
-                    <Fragment >
+                    <Fragment key={index}>
                       <Grid
                         item
                         xs={12}
@@ -63,25 +58,23 @@ function Cart({ productsInCart }) {
                         xs={12}
                         sm={3}
                         md={1}
-                        lg={4}
+                        lg={3}
                         display="grid"
                         textAlign="center"
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Box>
+                        <Grid item>
                           <FormHelperText>Price</FormHelperText>
-                          <Typography variant="inherit">
-                            {elem.price} €
-                          </Typography>
-                        </Box>
+                          <Typography variant="inherit">{elem.price} €</Typography>
+                        </Grid>
                       </Grid>
 
                       <Grid
                         item
                         xs={12}
                         sm={1}
-                        md={2}
+                        md={1}
                         lg={1}
                         display="grid"
                         textAlign="center"
@@ -94,13 +87,13 @@ function Cart({ productsInCart }) {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Divider />
+                      <Divider variant="middle" />
                     </Fragment>
                   );
                 })}
+              <Divider variant="middle" />
             </>
           </Grid>
-          <Divider />
           <Typography variant="h6" align="right" my={2}>
             Total: {totalPrice} €
           </Typography>

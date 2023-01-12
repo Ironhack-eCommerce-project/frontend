@@ -23,8 +23,8 @@ function Dashboard({ products, setProducts, categories, setCategories }) {
   return (
     <Container>
       <Box sx={{ mx: 3, my: 3 }}>
+        <h2>List of Products</h2>
         <Paper>
-          <h2>List of Products</h2>
           <ul>
             {products.map((elem) => {
               return (
