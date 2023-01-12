@@ -54,7 +54,7 @@ function Login() {
       const result = await axios.post(SERVER_ORIGIN + "/users/login", JSON.stringify(user), {
         withCredentials: true,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          // "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
       });
