@@ -77,6 +77,11 @@ function Navbar({ productsInCart }) {
               <MenuItem component={Link} to={"/store"} onClick={handleCloseNavMenu}>
                 <Typography textAlign="center">Store</Typography>
               </MenuItem>
+              {user && isAdmin && (
+                <MenuItem component={Link} to={"/dashboard"} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
           <ShoppingBagIcon sx={{ display: { xs: "flex" }, mr: 1 }} />
@@ -184,118 +189,6 @@ function Navbar({ productsInCart }) {
       </Container>
     </AppBar>
   );
-
-  // return (
-  //   <AppBar sx={{ background: "#000" }} position="sticky">
-  //     <Container spacing={0} maxWidth="xl">
-  //       <Toolbar disableGutters>
-  //         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-  //           <IconButton
-  //             size="large"
-  //             aria-label="account of current user"
-  //             aria-controls="menu-appbar"
-  //             aria-haspopup="true"
-  //             onClick={handleOpenNavMenu}
-  //             color="white"
-  //           >
-  //             <MenuIcon />
-  //           </IconButton>
-  //           <Menu
-  //             id="menu-appbar"
-  //             anchorEl={anchorElNav}
-  //             anchorOrigin={{
-  //               vertical: "bottom",
-  //               horizontal: "left",
-  //             }}
-  //             keepMounted
-  //             transformOrigin={{
-  //               vertical: "top",
-  //               horizontal: "left",
-  //             }}
-  //             open={Boolean(anchorElNav)}
-  //             onClose={handleCloseNavMenu}
-  //             sx={{
-  //               display: { xs: "block", md: "none" },
-  //             }}
-  //           >
-  //             {pages.map((page, index) => (
-  //               <MenuItem key={index} component={Link} to={`${page}`} onClick={handleCloseNavMenu}>
-  //                 <Typography textAlign="center">{page}</Typography>
-  //               </MenuItem>
-  //             ))}
-  //           </Menu>
-  //         </Box>
-  //         <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-
-  //         <Typography
-  //           variant="h5"
-  //           noWrap
-  //           component="a"
-  //           href=""
-  //           sx={{
-  //             mr: 2,
-  //             display: { xs: "flex", md: "none" },
-  //             flexGrow: 1,
-  //             fontFamily: "monospace",
-  //             fontWeight: 700,
-  //             letterSpacing: ".3rem",
-  //             color: "white",
-  //             textDecoration: "none",
-  //           }}
-  //         >
-  //           eCommerce MERN
-  //         </Typography>
-  //         <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-  //           {pages.map((page, index) => (
-  //             <Button
-  //               key={index}
-  //               component={Link}
-  //               to={`${page}`}
-  //               onClick={handleCloseNavMenu}
-  //               sx={{ my: 2, color: "white", display: "block" }}
-  //             >
-  //               {page}
-  //             </Button>
-  //           ))}
-  //         </Box>
-
-  //         <Box sx={{ flexGrow: 0 }}>
-  //           <Tooltip title="Open settings">
-  //             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-  //               <Avatar alt="" src="" />
-  //             </IconButton>
-  //           </Tooltip>
-  //           {!isLoggedIn && (
-  //             <Menu
-  //               sx={{ mt: "45px" }}
-  //               id="menu-appbar"
-  //               anchorEl={anchorElUser}
-  //               anchorOrigin={{
-  //                 vertical: "top",
-  //                 horizontal: "right",
-  //               }}
-  //               keepMounted
-  //               transformOrigin={{
-  //                 vertical: "top",
-  //                 horizontal: "right",
-  //               }}
-  //               open={Boolean(anchorElUser)}
-  //               onClose={handleCloseUserMenu}
-  //             >
-  //               {settings.map((setting) => (
-  //                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-  //                   <Typography textAlign="center">
-  //                     <Link to={`${setting}`}>{setting}</Link>
-  //                   </Typography>
-  //                 </MenuItem>
-  //               ))}
-  //             </Menu>
-  //           )}
-  //         </Box>
-  //       </Toolbar>
-  //     </Container>
-  //   </AppBar>
-  // );
 }
 
 export default Navbar;

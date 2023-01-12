@@ -28,6 +28,8 @@ const paperStyle = {
 
 function Login() {
   const [user, setUser] = useState(defaultUser);
+  const [errorMessage, setErrorMessage] = useState(undefined);
+
   const navigate = useNavigate();
   const { loginUser, adminUser } = useContext(UserContext);
 
@@ -66,7 +68,8 @@ function Login() {
       }
       navigate("/profile", { replace: true });
     } catch (error) {
-      console.log(error);
+      const errorDescription = error.data.message;
+      setErrorMessage(errorDescription);
     }
     // setUser(defaultUser);
   };
@@ -117,6 +120,7 @@ function Login() {
                   value={user.password}
                 />
               </MUi.FormControl>
+              {errorMessage && <p>{errorMessage}</p>}
 
               <MUi.Button
                 variant="contained"

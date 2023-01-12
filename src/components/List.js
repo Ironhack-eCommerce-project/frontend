@@ -23,6 +23,10 @@ function List({ products, setProductsInCart, productsInCart }) {
     setProductToCart({ addedProduct });
     const resp = await axios.post("/cart", productToCart, {
       withCredentials: true,
+      // headers: {
+      //   "Access-Control-Allow-Origin": "*",
+      //   "Content-Type": "application/json",
+      // },
     });
     console.log("resp:", resp);
   };
@@ -58,6 +62,7 @@ function List({ products, setProductsInCart, productsInCart }) {
               <Grid item xs={12} sm={6} md={4} lg={4} key={elem.slug}>
                 <Card raised>
                   <CardActionArea component={Link} to={`/store/${elem.slug}`}>
+
                     <CardMedia
                       component="img"
                       height="260"
@@ -68,16 +73,10 @@ function List({ products, setProductsInCart, productsInCart }) {
                       <Typography variant="body" color="text.secondary" noWrap>
                         {elem.name}
                       </Typography>
-                      <Typography
-                        variant="subtitle2"
-                        color="text.secondary"
-                        noWrap
-                      >
+                      <Typography variant="subtitle2" color="text.secondary" noWrap>
                         {elem.category.name}
                       </Typography>
-                      <CardActions
-                        sx={{ display: "flex", justifyContent: "space-around" }}
-                      >
+                      <CardActions sx={{ display: "flex", justifyContent: "space-around" }}>
                         <Button
                           size="small"
                           variant="contained"
@@ -87,11 +86,7 @@ function List({ products, setProductsInCart, productsInCart }) {
                         >
                           Add to Cart
                         </Button>
-                        <Typography
-                          variant="body1"
-                          color="text.secondary"
-                          align="right"
-                        >
+                        <Typography variant="body1" color="text.secondary" align="right">
                           {`${elem.price} €`}
                         </Typography>
                       </CardActions>

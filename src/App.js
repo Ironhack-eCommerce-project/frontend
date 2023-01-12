@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Box, Container } from "@mui/material";
+import { Box, Container, CssBaseline, GlobalStyles } from "@mui/material";
 import "./App.css";
 // import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";

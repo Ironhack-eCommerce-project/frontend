@@ -1,7 +1,4 @@
-import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
-// import { unstable_createCssVarsProvider } from "@mui/system";
-import { Fragment } from "react";
 
 import {
   Box,
@@ -55,8 +52,9 @@ function Cart({ productsInCart, setProductsInCart }) {
           <Grid container gap={2}>
             <>
               {productsInCart[0] &&
-                productsInCart.map((elem) => {
+                productsInCart.map((elem, index) => {
                   return (
+
                     <Fragment key={elem._id}>
                       <Grid
                         item
@@ -93,7 +91,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         xs={12}
                         sm={3}
                         md={1}
-                        lg={4}
+                        lg={3}
                         display="grid"
                         textAlign="center"
                         justifyContent="center"
@@ -111,7 +109,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         item
                         xs={12}
                         sm={1}
-                        md={2}
+                        md={1}
                         lg={1}
                         display="grid"
                         textAlign="center"
@@ -124,13 +122,13 @@ function Cart({ productsInCart, setProductsInCart }) {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Divider />
+                      <Divider variant="middle" />
                     </Fragment>
                   );
                 })}
+              <Divider variant="middle" />
             </>
           </Grid>
-          <Divider />
           <Typography variant="h6" align="right" my={2}>
             Total: {totalPrice} €
           </Typography>
