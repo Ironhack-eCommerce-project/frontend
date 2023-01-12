@@ -51,7 +51,7 @@ function Login() {
 
   const sendToServer = async () => {
     try {
-      const result = await axios.post(SERVER_ORIGIN + "/users/login", JSON.stringify(user), {
+      const result = await axios.post("/users/login", JSON.stringify(user), {
         withCredentials: true,
         headers: {
           "Access-Control-Allow-Origin": "*",
