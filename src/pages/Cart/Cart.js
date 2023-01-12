@@ -1,8 +1,5 @@
 import axios from "axios";
-import { Fragment, useEffect, useState } from "react";
-// import { unstable_createCssVarsProvider } from "@mui/system";
 import { Fragment } from "react";
-
 import {
   Box,
   Container,
@@ -15,7 +12,6 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
-import axios from "axios";
 
 function Cart({ productsInCart, setProductsInCart }) {
   const totalPrice = productsInCart
