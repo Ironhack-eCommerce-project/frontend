@@ -13,15 +13,36 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
+import axios from "axios";
 
-function Cart({ productsInCart }) {
+function Cart({ productsInCart, setProductsInCart }) {
   const totalPrice = productsInCart
-    .reduce((acc, curr) => acc + curr.price, 0)
+    .reduce((acc, curr) => acc + curr.product.price, 0)
     .toFixed(2);
-  console.log("IMPORTANT Prodcut in cart: ", productsInCart[0])
-  const handleClick = (e) => {
-    console.log("click", e.currentTarget.id)
-  }
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`/cart/${e.currentTarget.id}`, {
+        withCredentials: true,
+      });
+
+      const fetchData = async () => {
+        const result = await axios.get("/cart");
+        const data = await result.data;
+        setProductsInCart(data);
+      };
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+
+    const resp = await axios.delete(`/cart/${e.currentTarget.id}`, {
+      withCredentials: true,
+    });
+    console.log("resp:", resp);
+  };
+
   return (
     <>
       <h2>Cart</h2>
@@ -44,7 +65,11 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <img src={elem.product.image} alt={elem.product.name} width="150" />
+                        <img
+                          src={elem.product.image}
+                          alt={elem.product.name}
+                          width="150"
+                        />
                       </Grid>
                       <Grid
                         item
@@ -57,7 +82,9 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Typography variant="inherit">{elem.product.name}</Typography>
+                        <Typography variant="inherit">
+                          {elem.product.name}
+                        </Typography>
                       </Grid>
                       <Grid
                         item
@@ -90,7 +117,7 @@ function Cart({ productsInCart }) {
                         alignContent="center"
                       >
                         <Tooltip title="Remove" placement="top">
-                          <IconButton onClick={handleClick} id={elem._id} >
+                          <IconButton onClick={handleClick} id={elem._id}>
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>

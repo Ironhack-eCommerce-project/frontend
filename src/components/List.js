@@ -16,10 +16,10 @@ import { useEffect, useState } from "react";
 
 function List({ products, setProductsInCart, productsInCart }) {
   const [productToCart, setProductToCart] = useState({});
-  
+
   const handleClick = async (e) => {
     e.preventDefault();
-    const addedProduct = { product: e.target.id };
+    const addedProduct = { product: e.currentTarget.id };
     setProductToCart({ addedProduct });
     const resp = await axios.post("/cart", productToCart, {
       withCredentials: true,
@@ -64,9 +64,6 @@ function List({ products, setProductsInCart, productsInCart }) {
                       image={elem.image}
                       alt={elem.name}
                     />
-                    {/* <Link to={`/store/${elem.slug}`}>
-                      <img src={elem.image} alt={elem.name} className="listItemImg" />
-                    </Link> */}
                     <CardContent>
                       <Typography variant="body" color="text.secondary" noWrap>
                         {elem.name}
@@ -111,15 +108,3 @@ function List({ products, setProductsInCart, productsInCart }) {
 }
 
 export default List;
-
-//  <Grid item xs={12} sm={6} lg={3} key={elem.slug}>
-//    <Link to={`/store/${elem.slug}`}>
-//      <img src={elem.image} alt={elem.name} className="listItemImg" />
-//    </Link>
-//    <Typography>{elem.category.name}</Typography>
-//    <Typography>{elem.name}</Typography>
-//    <Typography>€ {elem.price}</Typography>
-//    <button id={elem._id} onClick={handleClick}>
-//      Add to Cart
-//    </button>
-//  </Grid>;
