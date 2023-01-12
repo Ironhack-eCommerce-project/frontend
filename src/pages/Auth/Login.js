@@ -1,4 +1,4 @@
-import { SERVER_ORIGIN } from "../../consts.js";
+// import { SERVER_ORIGIN } from "../../consts.js";
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -51,13 +51,17 @@ function Login() {
 
   const sendToServer = async () => {
     try {
-      const result = await axios.post("/users/login", JSON.stringify(user), {
-        withCredentials: true,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await axios.post(
+        "https://enchanting-biscuit-065369.netlify.app/users/login",
+        JSON.stringify(user),
+        {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await result.data;
       loginUser(data);
       localStorage.setItem("user", JSON.stringify(data));
@@ -81,7 +85,7 @@ function Login() {
   };
 
   function googleAuth() {
-    window.location.href = SERVER_ORIGIN + "/users/google";
+    window.location.href = "https://enchanting-biscuit-065369.netlify.app/users/google";
   }
 
   return (
