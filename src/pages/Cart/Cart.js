@@ -12,9 +12,35 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
+import axios from "axios";
 
-function Cart({ productsInCart }) {
-  const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.price, 0).toFixed(2);
+function Cart({ productsInCart, setProductsInCart }) {
+  const totalPrice = productsInCart
+    .reduce((acc, curr) => acc + curr.product.price, 0)
+    .toFixed(2);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`/cart/${e.currentTarget.id}`, {
+        withCredentials: true,
+      });
+
+      const fetchData = async () => {
+        const result = await axios.get("/cart");
+        const data = await result.data;
+        setProductsInCart(data);
+      };
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+
+    const resp = await axios.delete(`/cart/${e.currentTarget.id}`, {
+      withCredentials: true,
+    });
+    console.log("resp:", resp);
+  };
 
   return (
     <>
@@ -28,7 +54,8 @@ function Cart({ productsInCart }) {
               {productsInCart[0] &&
                 productsInCart.map((elem, index) => {
                   return (
-                    <Fragment key={index}>
+
+                    <Fragment key={elem._id}>
                       <Grid
                         item
                         xs={12}
@@ -38,7 +65,11 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <img src={elem.image} alt={elem.name} width="150" />
+                        <img
+                          src={elem.product.image}
+                          alt={elem.product.name}
+                          width="150"
+                        />
                       </Grid>
                       <Grid
                         item
@@ -51,7 +82,9 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Typography variant="inherit">{elem.name}</Typography>
+                        <Typography variant="inherit">
+                          {elem.product.name}
+                        </Typography>
                       </Grid>
                       <Grid
                         item
@@ -64,10 +97,12 @@ function Cart({ productsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Grid item>
+                        <Box>
                           <FormHelperText>Price</FormHelperText>
-                          <Typography variant="inherit">{elem.price} €</Typography>
-                        </Grid>
+                          <Typography variant="inherit">
+                            {elem.product.price} €
+                          </Typography>
+                        </Box>
                       </Grid>
 
                       <Grid
@@ -82,7 +117,7 @@ function Cart({ productsInCart }) {
                         alignContent="center"
                       >
                         <Tooltip title="Remove" placement="top">
-                          <IconButton>
+                          <IconButton onClick={handleClick} id={elem._id}>
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>
