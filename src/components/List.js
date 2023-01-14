@@ -12,16 +12,13 @@ import {
 } from "@mui/material";
 import "../pages/Store/store.css";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 function List({ products, setProductsInCart, productsInCart }) {
-  const [productToCart, setProductToCart] = useState({});
-
   const handleClick = async (e) => {
     e.preventDefault();
     const addedProduct = { product: e.currentTarget.id };
-    setProductToCart({ addedProduct });
-    const resp = await axios.post("/cart", productToCart, {
+    console.log("AP", addedProduct);
+    const resp = await axios.post("/cart", addedProduct, {
       withCredentials: true,
       // headers: {
       //   "Access-Control-Allow-Origin": "*",
@@ -29,29 +26,13 @@ function List({ products, setProductsInCart, productsInCart }) {
       // },
     });
     console.log("resp:", resp);
-  };
-
-  useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get("/cart");
       const data = await result.data;
-      console.log("Refresh Products in Cart");
       setProductsInCart(data);
     };
     fetchData();
-  }, [setProductsInCart, productToCart]);
-
-  useEffect(
-    () =>
-      console.log(
-        "PROD IN CART: ",
-        productsInCart,
-        productsInCart.length,
-        "Add Cart Prod: ",
-        productToCart
-      ),
-    [productsInCart, productToCart]
-  );
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>

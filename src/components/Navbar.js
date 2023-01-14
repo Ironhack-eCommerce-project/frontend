@@ -74,7 +74,11 @@ function Navbar({ productsInCart }) {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem component={Link} to={"/store"} onClick={handleCloseNavMenu}>
+              <MenuItem
+                component={Link}
+                to={"/store"}
+                onClick={handleCloseNavMenu}
+              >
                 <Typography textAlign="center">Store</Typography>
               </MenuItem>
               {user && isAdmin && (
@@ -104,10 +108,11 @@ function Navbar({ productsInCart }) {
             eCommerce
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/* <Button component={Link} to="/" sx={{ my: 2, color: "white", display: "block" }}>
-              Home
-            </Button> */}
-            <Button component={Link} to="/store" sx={{ my: 2, color: "white", display: "block" }}>
+            <Button
+              component={Link}
+              to="/store"
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
               Store
             </Button>
             {user && isAdmin && (
@@ -125,8 +130,6 @@ function Navbar({ productsInCart }) {
               <Typography
                 sx={{
                   mr: 2,
-                  // display: { xs: "flex" },
-                  // flexGrow: 1,
                   fontFamily: "monospace",
                   fontWeight: 700,
                   letterSpacing: ".3rem",
@@ -160,13 +163,21 @@ function Navbar({ productsInCart }) {
               onClose={handleCloseUserMenu}
             >
               {user && (
-                <MenuItem component={Link} to="/profile" onClick={handleCloseUserMenu}>
+                <MenuItem
+                  component={Link}
+                  to="/profile"
+                  onClick={handleCloseUserMenu}
+                >
                   Profile
                 </MenuItem>
               )}
 
               {!user && (
-                <MenuItem component={Link} to="/login" onClick={handleCloseUserMenu}>
+                <MenuItem
+                  component={Link}
+                  to="/login"
+                  onClick={handleCloseUserMenu}
+                >
                   Login
                 </MenuItem>
               )}

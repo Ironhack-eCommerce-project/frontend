@@ -43,8 +43,6 @@ function App() {
     getUser();
   }, []);
 
-  // console.log("PRODUCTS: ", products);
-
   const [productsInCart, setProductsInCart] = useState([]);
 
   useEffect(() => {
