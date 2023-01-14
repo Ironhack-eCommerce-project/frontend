@@ -81,6 +81,11 @@ function Navbar({ productsInCart }) {
               >
                 <Typography textAlign="center">Store</Typography>
               </MenuItem>
+              {user && isAdmin && (
+                <MenuItem component={Link} to={"/dashboard"} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Dashboard</Typography>
+                </MenuItem>
+              )}
             </Menu>
           </Box>
           <ShoppingBagIcon sx={{ display: { xs: "flex" }, mr: 1 }} />

@@ -14,9 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
 
 function Cart({ productsInCart, setProductsInCart }) {
-  const totalPrice = productsInCart
-    .reduce((acc, curr) => acc + curr.product.price, 0)
-    .toFixed(2);
+  const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.product.price, 0).toFixed(2);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -51,7 +49,7 @@ function Cart({ productsInCart, setProductsInCart }) {
           <Grid container gap={2}>
             <>
               {productsInCart[0] &&
-                productsInCart.map((elem) => {
+                productsInCart.map((elem, index) => {
                   return (
                     <Fragment key={elem._id}>
                       <Grid
@@ -63,11 +61,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <img
-                          src={elem.product.image}
-                          alt={elem.product.name}
-                          width="150"
-                        />
+                        <img src={elem.product.image} alt={elem.product.name} width="150" />
                       </Grid>
                       <Grid
                         item
@@ -80,16 +74,14 @@ function Cart({ productsInCart, setProductsInCart }) {
                         justifyContent="center"
                         alignContent="center"
                       >
-                        <Typography variant="inherit">
-                          {elem.product.name}
-                        </Typography>
+                        <Typography variant="inherit">{elem.product.name}</Typography>
                       </Grid>
                       <Grid
                         item
                         xs={12}
                         sm={3}
                         md={1}
-                        lg={4}
+                        lg={3}
                         display="grid"
                         textAlign="center"
                         justifyContent="center"
@@ -97,9 +89,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                       >
                         <Box>
                           <FormHelperText>Price</FormHelperText>
-                          <Typography variant="inherit">
-                            {elem.product.price} €
-                          </Typography>
+                          <Typography variant="inherit">{elem.product.price} €</Typography>
                         </Box>
                       </Grid>
 
@@ -107,7 +97,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         item
                         xs={12}
                         sm={1}
-                        md={2}
+                        md={1}
                         lg={1}
                         display="grid"
                         textAlign="center"
@@ -120,13 +110,13 @@ function Cart({ productsInCart, setProductsInCart }) {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Divider />
+                      <Divider variant="middle" />
                     </Fragment>
                   );
                 })}
+              <Divider variant="middle" />
             </>
           </Grid>
-          <Divider />
           <Typography variant="h6" align="right" my={2}>
             Total: {totalPrice} €
           </Typography>

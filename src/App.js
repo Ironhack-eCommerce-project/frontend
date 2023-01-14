@@ -117,12 +117,7 @@ function App() {
           <Route path="/addproduct" element={<AddProduct />} />
           <Route
             path="/cart"
-            element={
-              <Cart
-                productsInCart={productsInCart}
-                setProductsInCart={setProductsInCart}
-              />
-            }
+            element={<Cart productsInCart={productsInCart} setProductsInCart={setProductsInCart} />}
           />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="*" element={<NotFound />} />
