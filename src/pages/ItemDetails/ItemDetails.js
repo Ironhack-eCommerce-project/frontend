@@ -1,13 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./itemDetails.css";
 
-import { Box, Button, Card, CardMedia, Container, Divider, Grid, Typography } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import {
+  Box,
+  Card,
+  CardMedia,
+  Container,
+  Divider,
+  Grid,
+  Typography,
+} from "@mui/material";
 
 function ItemDetails() {
-  const [product, setProduct] = useState({});  
+  const [product, setProduct] = useState({});
   const { slug } = useParams();
 
   useEffect(() => {
@@ -19,11 +26,6 @@ function ItemDetails() {
     findProduct();
   }, [slug]);
 
-  // const handleClick = (e) => {
-  //   setEditButtonClicked(!editButtonClicked);
-  //   console.log(editButtonClicked);
-  // };
-
   return (
     <>
       <Container>
@@ -32,7 +34,11 @@ function ItemDetails() {
             <>
               <Grid item sm={6} md={4} lg={6}>
                 <Card raised>
-                  <CardMedia component="img" image={product.image} alt={product.name} />
+                  <CardMedia
+                    component="img"
+                    image={product.image}
+                    alt={product.name}
+                  />
                 </Card>
               </Grid>
 
@@ -51,30 +57,7 @@ function ItemDetails() {
                     </Typography>
                   </Box>
                 </Grid>
-
                 <Divider sx={{ mb: 2 }} />
-
-                <input type="number" />
-                <Box display="flex" my>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    startIcon={<ShoppingCartIcon />}
-                    component={Link}
-                    to=""
-                  >
-                    Add to Cart
-                  </Button>
-                </Box>
-
-                {/* <button onClick={handleClick}>Edit Product</button>
-                {editButtonClicked && (
-                  <EditProduct
-                    product={product}
-                    setProduct={setProduct}
-                    setEditButtonClicked={setEditButtonClicked}
-                  />
-                )} */}
               </Grid>
             </>
           )}

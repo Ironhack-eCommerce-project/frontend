@@ -1,5 +1,5 @@
+import axios from "axios";
 import { Fragment } from "react";
-
 import {
   Box,
   Container,
@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
-import axios from "axios";
 
 function Cart({ productsInCart, setProductsInCart }) {
   const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.product.price, 0).toFixed(2);
