@@ -1,6 +1,7 @@
 import { Button, Grid, Input, InputLabel, Paper } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { SERVER_ORIGIN } from "../consts";
 import { slugify } from "../functions";
 
 function AddCategory({ setCategories }) {
@@ -24,11 +25,11 @@ function AddCategory({ setCategories }) {
     e.preventDefault();
     try {
       newCategory.slug = slugify(newCategory.name);
-      const resp = await axios.post("/categories", newCategory);
+      const resp = await axios.post(SERVER_ORIGIN + "/categories", newCategory);
       console.log("resp:", resp);
       setNewCategory(defaultCategory);
       const fetchData = async () => {
-        const result = await axios.get("/categories");
+        const result = await axios.get(SERVER_ORIGIN + "/categories");
         const data = await result.data;
         setCategories(data);
       };

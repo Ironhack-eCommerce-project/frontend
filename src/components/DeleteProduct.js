@@ -1,13 +1,14 @@
 import axios from "axios";
+import { SERVER_ORIGIN } from "../consts";
 
 function DeleteProduct({ elem, setProducts }) {
   const handleClick = async (e) => {
     console.log("E TARGET: ", e.target.id);
     try {
-      await axios.delete(`/products/${elem.slug}`);
+      await axios.delete(`${SERVER_ORIGIN}/products/${elem.slug}`);
 
       const fetchData = async () => {
-        const result = await axios.get("/products");
+        const result = await axios.get(SERVER_ORIGIN + "/products");
         const data = await result.data;
         setProducts(data);
       };

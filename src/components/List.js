@@ -12,13 +12,14 @@ import {
 } from "@mui/material";
 import "../pages/Store/store.css";
 import axios from "axios";
+import { SERVER_ORIGIN } from "../consts";
 
 function List({ products, setProductsInCart, productsInCart }) {
   const handleClick = async (e) => {
     e.preventDefault();
     const addedProduct = { product: e.currentTarget.id };
     console.log("AP", addedProduct);
-    const resp = await axios.post("/cart", addedProduct, {
+    const resp = await axios.post(SERVER_ORIGIN + "/cart", addedProduct, {
       withCredentials: true,
       // headers: {
       //   "Access-Control-Allow-Origin": "*",
@@ -27,7 +28,7 @@ function List({ products, setProductsInCart, productsInCart }) {
     });
     console.log("resp:", resp);
     const fetchData = async () => {
-      const result = await axios.get("/cart");
+      const result = await axios.get(SERVER_ORIGIN + "/cart");
       const data = await result.data;
       setProductsInCart(data);
     };
@@ -43,13 +44,7 @@ function List({ products, setProductsInCart, productsInCart }) {
               <Grid item xs={12} sm={6} md={4} lg={4} key={elem.slug}>
                 <Card raised>
                   <CardActionArea component={Link} to={`/store/${elem.slug}`}>
-
-                    <CardMedia
-                      component="img"
-                      height="260"
-                      image={elem.image}
-                      alt={elem.name}
-                    />
+                    <CardMedia component="img" height="260" image={elem.image} alt={elem.name} />
                     <CardContent>
                       <Typography variant="body" color="text.secondary" noWrap>
                         {elem.name}

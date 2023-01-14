@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("/cart");
+      const result = await axios.get(SERVER_ORIGIN + "/cart");
       const data = await result.data;
       setProductsInCart(data);
     };
@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("/products");
+      const result = await axios.get(SERVER_ORIGIN + "/products");
       const data = await result.data;
       setProducts(data);
     };
@@ -65,7 +65,7 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("/categories");
+      const result = await axios.get(SERVER_ORIGIN + "/categories");
       const data = await result.data;
       setCategories(data);
     };

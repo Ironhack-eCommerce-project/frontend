@@ -3,15 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./itemDetails.css";
 
-import {
-  Box,
-  Card,
-  CardMedia,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardMedia, Container, Divider, Grid, Typography } from "@mui/material";
+import { SERVER_ORIGIN } from "../../consts";
 
 function ItemDetails() {
   const [product, setProduct] = useState({});
@@ -19,7 +12,7 @@ function ItemDetails() {
 
   useEffect(() => {
     const findProduct = async () => {
-      const result = await axios.get(`/products/${slug}`);
+      const result = await axios.get(`${SERVER_ORIGIN}/products/${slug}`);
       const data = await result.data;
       setProduct(data);
     };
@@ -34,11 +27,7 @@ function ItemDetails() {
             <>
               <Grid item sm={6} md={4} lg={6}>
                 <Card raised>
-                  <CardMedia
-                    component="img"
-                    image={product.image}
-                    alt={product.name}
-                  />
+                  <CardMedia component="img" image={product.image} alt={product.name} />
                 </Card>
               </Grid>
 

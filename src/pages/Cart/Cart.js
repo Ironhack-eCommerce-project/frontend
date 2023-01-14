@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PayButton from "../../utils/PayButton";
+import { SERVER_ORIGIN } from "../../consts";
 
 function Cart({ productsInCart, setProductsInCart }) {
   const totalPrice = productsInCart.reduce((acc, curr) => acc + curr.product.price, 0).toFixed(2);
@@ -19,12 +20,12 @@ function Cart({ productsInCart, setProductsInCart }) {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/cart/${e.currentTarget.id}`, {
+      await axios.post(`${SERVER_ORIGIN}/cart/${e.currentTarget.id}`, {
         withCredentials: true,
       });
 
       const fetchData = async () => {
-        const result = await axios.get("/cart");
+        const result = await axios.get(SERVER_ORIGIN + "/cart");
         const data = await result.data;
         setProductsInCart(data);
       };
@@ -33,7 +34,7 @@ function Cart({ productsInCart, setProductsInCart }) {
       console.log(error);
     }
 
-    const resp = await axios.delete(`/cart/${e.currentTarget.id}`, {
+    const resp = await axios.delete(`${SERVER_ORIGIN}/cart/${e.currentTarget.id}`, {
       withCredentials: true,
     });
     console.log("resp:", resp);
