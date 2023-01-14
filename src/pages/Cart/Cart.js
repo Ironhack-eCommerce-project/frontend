@@ -1,3 +1,4 @@
+// import { unstable_createCssVarsProvider } from "@mui/system";
 import { Fragment } from "react";
 
 import {
@@ -50,7 +51,7 @@ function Cart({ productsInCart, setProductsInCart }) {
           <Grid container gap={2}>
             <>
               {productsInCart[0] &&
-                productsInCart.map((elem, index) => {
+                productsInCart.map((elem) => {
                   return (
                     <Fragment key={elem._id}>
                       <Grid
@@ -82,7 +83,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         xs={12}
                         sm={3}
                         md={1}
-                        lg={3}
+                        lg={4}
                         display="grid"
                         textAlign="center"
                         justifyContent="center"
@@ -98,7 +99,7 @@ function Cart({ productsInCart, setProductsInCart }) {
                         item
                         xs={12}
                         sm={1}
-                        md={1}
+                        md={2}
                         lg={1}
                         display="grid"
                         textAlign="center"
@@ -111,13 +112,13 @@ function Cart({ productsInCart, setProductsInCart }) {
                           </IconButton>
                         </Tooltip>
                       </Grid>
-                      <Divider variant="middle" />
+                      <Divider />
                     </Fragment>
                   );
                 })}
-              <Divider variant="middle" />
             </>
           </Grid>
+          <Divider />
           <Typography variant="h6" align="right" my={2}>
             Total: {totalPrice} €
           </Typography>
