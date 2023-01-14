@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { SERVER_ORIGIN } from "../consts";
 import { slugify } from "../functions";
 
 function EditCategory({ category, setCategories, setEditCategoryButtonClicked }) {
@@ -16,17 +17,14 @@ function EditCategory({ category, setCategories, setEditCategoryButtonClicked })
     e.preventDefault();
     try {
       editedCategory.slug = slugify(editedCategory.name);
-      const resp = await axios.put(
-        `/categories/${category.slug}`,
-        editedCategory
-      );
+      const resp = await axios.put(`${SERVER_ORIGIN}/categories/${category.slug}`, editedCategory);
       console.log(resp);
 
       /* As in Add/Delete Product the following function just to refresh what is shown. Should probably be improved in the future */
       const fetchData = async () => {
-        const result = await axios.get("/categories");
+        const result = await axios.get(SERVER_ORIGIN + "/categories");
         const data = await result.data;
-        setCategories(data);        
+        setCategories(data);
       };
       fetchData();
       setEditCategoryButtonClicked(false);
@@ -40,11 +38,7 @@ function EditCategory({ category, setCategories, setEditCategoryButtonClicked })
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input
-            name="name"
-            value={editedCategory.name}
-            onChange={handleChange}
-          />
+          <input name="name" value={editedCategory.name} onChange={handleChange} />
         </label>
         <button type="submit">Save changes</button>
       </form>
