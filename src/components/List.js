@@ -21,14 +21,20 @@ function List({ products, setProductsInCart, productsInCart }) {
     console.log("AP", addedProduct);
     const resp = await axios.post(SERVER_ORIGIN + "/cart", addedProduct, {
       withCredentials: true,
-      // headers: {
-      //   "Access-Control-Allow-Origin": "*",
-      //   "Content-Type": "application/json",
-      // },
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
     });
     console.log("resp:", resp);
     const fetchData = async () => {
-      const result = await axios.get(SERVER_ORIGIN + "/cart");
+      const result = await axios.get(SERVER_ORIGIN + "/cart", {
+        withCredentials: true,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      });
       const data = await result.data;
       setProductsInCart(data);
     };

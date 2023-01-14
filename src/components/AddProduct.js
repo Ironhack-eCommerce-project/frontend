@@ -75,11 +75,11 @@ function AddProduct({ setProducts, categories }) {
       if (!newProduct.category) newProduct.category = categories[0].name;
       if (!previewFile) return;
       newProduct.image = selectedFile;
-      const resp = await axios.post(SERVER_ORIGIN + "//products", newProduct);
+      const resp = await axios.post(SERVER_ORIGIN + "/products", newProduct);
       console.log("resp:", resp);
       setNewProduct(defaultProduct);
       const fetchData = async () => {
-        const result = await axios.get(SERVER_ORIGIN + "//products");
+        const result = await axios.get(SERVER_ORIGIN + "/products");
         const data = await result.data;
         setProducts(data);
       };
