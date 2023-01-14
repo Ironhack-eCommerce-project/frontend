@@ -25,7 +25,13 @@ function Cart({ productsInCart, setProductsInCart }) {
       });
 
       const fetchData = async () => {
-        const result = await axios.get(SERVER_ORIGIN + "/cart");
+        const result = await axios.get(SERVER_ORIGIN + "/cart", {
+          withCredentials: true,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        });
         const data = await result.data;
         setProductsInCart(data);
       };

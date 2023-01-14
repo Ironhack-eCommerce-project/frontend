@@ -29,7 +29,7 @@ function EditProduct({ product, setEditProductButtonClicked, setProducts, catego
       console.log(resp);
       /* As in Add/Delete Product the following function just to refresh what is shown. Should probably be improved in the future */
       const fetchData = async () => {
-        const result = await axios.get(SERVER_ORIGIN + "//products");
+        const result = await axios.get(SERVER_ORIGIN + "/products");
         const data = await result.data;
         setProducts(data);
       };
